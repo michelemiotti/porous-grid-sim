@@ -1,0 +1,2 @@
+# Ignore the exported meshes.
+exported-meshes/*.stl
