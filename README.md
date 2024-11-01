@@ -1,7 +1,7 @@
 # Porous Grid Sim
 
 This is an OpenFOAM solver for simulating flow through porous media. This is
-part of a project for the **059439 - HIGH PERFORMANCE SIMULATION LAB FOR
+part of a project for the **(059439) HIGH PERFORMANCE SIMULATION LAB FOR
 MECHANICAL ENGINEERING** course.
 
 ## Installation
@@ -48,23 +48,11 @@ $BLENDER_PATH --background --python mesh-generators/generate_porous_mesh.py -- \
 
 > [!NOTE]
 > The extra `--` after the script name is necessary to pass the arguments to
-> the script. The --background flag is used to run blender in the background,
+> the script. The `--background` flag is used to run Blender in the background,
 > without opening the GUI. This is useful for running the script in a headless
 > environment.
 
 ### Wire Mesh Generation
-
-The wire mesh generation script generates an interwoven wire mesh. The script
-is currently under development.
-
-```bash
-export BLENDER_PATH=/path/to/blender/executable
-export PROJECT_DIR=/path/to/porous_grid_sim
-
-$BLENDER_PATH --background --python mesh-generators/generate_wire_mesh.py -- \
-    --export_path $PROJECT_DIR/exported-meshes/wire_mesh.stl \
-    --...
-```
 
 > [!WARNING]
 > The wire mesh generation script is not yet implemented.
