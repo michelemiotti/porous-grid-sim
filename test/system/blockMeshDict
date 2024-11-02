@@ -13,56 +13,133 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-convertToMeters 0.1;
+/* 
+A parallelepipedal mesh with an inlet at z=0, an outlet at z=z_size, and
+periodic boundaries on the other sizes. The mesh is graded in the x and y
+directions.
+*/
+
+// Constants. Change these to change the mesh.
+convertToMeters 0.01; // every size is in centimeters.
+
+x_size 1.0;
+y_size 1.0;
+z_size 10.0;
+num_x_cells 50; // must be even
+num_y_cells 50; // must be even
+num_z_cells 100;
+grading_amount 5.0;
+
+// Derived constants.
+half_x_size #calc "$x_size / 2";
+half_y_size #calc "$y_size / 2";
+half_x_cells #calc "$num_x_cells / 2";
+half_y_cells #calc "$num_y_cells / 2";
+inverse_grading #calc "1 / $grading_amount";
 
 vertices
 (
-    (0 0 0)
-    (1 0 0)
-    (1 1 0)
-    (0 1 0)
-    (0 0 0.1)
-    (1 0 0.1)
-    (1 1 0.1)
-    (0 1 0.1)
+    (0 0 0)                             // 0
+    ($half_x_size 0 0)                  // 1
+    ($half_x_size $half_y_size 0)       // 2
+    (0 $half_y_size 0)                  // 3
+    (0 0 $z_size)                       // 4
+    ($half_x_size 0 $z_size)            // 5
+    ($half_x_size $half_y_size $z_size) // 6
+    (0 $half_y_size $z_size)            // 7
+    ($x_size 0 0)                       // 8
+    ($x_size $half_y_size 0)            // 9
+    ($x_size 0 $z_size)                 // 10
+    ($x_size $half_y_size $z_size)      // 11
+    ($half_x_size $y_size 0)            // 12
+    (0 $y_size 0)                       // 13
+    ($half_x_size $y_size $z_size)      // 14
+    (0 $y_size $z_size)                 // 15
+    ($x_size $y_size 0)                 // 16
+    ($x_size $y_size $z_size)           // 17
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) (20 20 1) simpleGrading (1 1 1)
+    hex (0 1 2 3 4 5 6 7) ($half_x_cells $half_y_cells $num_z_cells) simpleGrading ($grading_amount $grading_amount 1)
+    hex (1 8 9 2 5 10 11 6) ($half_x_cells $half_y_cells $num_z_cells) simpleGrading ($inverse_grading $grading_amount 1)
+    hex (3 2 12 13 7 6 14 15) ($half_x_cells $half_y_cells $num_z_cells) simpleGrading ($grading_amount $inverse_grading 1)
+    hex (2 9 16 12 6 11 17 14) ($half_x_cells $half_y_cells $num_z_cells) simpleGrading ($inverse_grading $inverse_grading 1)
 );
-
-//(0 1 2 3 4 5 6 7) vertices indices counterclockwise, bottom first, then top
-//(20 20 1) number of volumes in each direction
-//(1 1 1) if different from 1, grading in the corresponding direction
 
 boundary
 (
-    movingWall
+    // x = 0
+    periodicLeft
     {
-        type wall;
-        faces
-        (
-            (3 7 6 2)
-        );
-    }
-    fixedWalls
-    {
-        type wall;
+        type cyclic;
+        neighbourPatch  periodicRight; 
         faces
         (
             (0 4 7 3)
-            (2 6 5 1)
-            (1 5 4 0)
+            (3 13 7 15)
         );
     }
-    frontAndBack
+
+    // x = x_size
+    periodicRight
     {
-        type empty;
+        type cyclic;
+        neighbourPatch  periodicLeft; 
+        faces
+        (
+            (8 9 10 11)
+            (9 16 17 11)
+        );
+    }
+
+    // y = 0
+    periodicBottom
+    {
+        type cyclic;
+        neighbourPatch  periodicTop; 
+        faces
+        (
+            (1 5 4 0)
+            (1 5 10 8)
+        );
+    }
+
+    // y = y_size
+    periodicTop
+    {
+        type cyclic;
+        neighbourPatch  periodicBottom; 
+        faces
+        (
+            (12 13 14 15)
+            (12 16 17 14)
+        );
+    }
+
+    // z = 0
+    inlet
+    {
+        type wall;
         faces
         (
             (0 3 2 1)
+            (1 8 9 2)
+            (2 12 13 3)
+            (2 9 16 12)
+        );
+    }
+
+    // z = z_size
+    outlet
+    {
+        type wall;
+        faces
+        (
             (4 5 6 7)
+            (5 10 11 6)
+            (6 14 15 7)
+            (11 17 14 6)
         );
     }
 );

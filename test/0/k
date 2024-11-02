@@ -20,19 +20,19 @@ internalField   uniform 0.00375;
 
 boundaryField
 {
-    movingWall
+    inlet
     {
         type            kqRWallFunction;
         value           uniform 0.00375;
     }
-    fixedWalls
+    outlet
     {
         type            kqRWallFunction;
         value           uniform 0.00375;
     }
-    frontAndBack
+    "periodic.*"
     {
-        type            empty;
+        type            cyclic;
     }
 }
 

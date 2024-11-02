@@ -20,19 +20,19 @@ internalField   uniform 0;
 
 boundaryField
 {
-    movingWall
+    inlet
     {
         type            nutkWallFunction;
         value           uniform 0;
     }
-    fixedWalls
+    outlet
     {
         type            nutkWallFunction;
         value           uniform 0;
     }
-    frontAndBack
+    "periodic.*"
     {
-        type            empty;
+        type            cyclic;
     }
 }
 

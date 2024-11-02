@@ -8,3 +8,4 @@ test/*
 !test/0
 !test/Allclean
 !test/Allrun
+test/constant/polyMesh

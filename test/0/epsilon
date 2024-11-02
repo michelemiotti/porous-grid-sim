@@ -20,19 +20,19 @@ internalField   uniform 0.00754;
 
 boundaryField
 {
-    movingWall
+    inlet
     {
         type            epsilonWallFunction;
         value           uniform 0.00754;
     }
-    fixedWalls
+    outlet
     {
         type            epsilonWallFunction;
         value           uniform 0.00754;
     }
-    frontAndBack
+    "periodic.*"
     {
-        type            empty;
+        type            cyclic;
     }
 }
 

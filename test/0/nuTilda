@@ -19,19 +19,17 @@ internalField   uniform 0;
 
 boundaryField
 {
-    movingWall
+    inlet
     {
         type            zeroGradient;
     }
-
-    fixedWalls
+    outlet
     {
         type            zeroGradient;
     }
-
-    frontAndBack
+    "periodic.*"
     {
-        type            empty;
+        type            cyclic;
     }
 }
 

@@ -20,19 +20,19 @@ internalField   uniform 22.4;
 
 boundaryField
 {
-    movingWall
+    inlet
     {
         type            omegaWallFunction;
         value           uniform 22.4;
     }
-    fixedWalls
+    outlet
     {
         type            omegaWallFunction;
         value           uniform 22.4;
     }
-    frontAndBack
+    "periodic.*"
     {
-        type            empty;
+        type            cyclic;
     }
 }
 
