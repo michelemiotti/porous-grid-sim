@@ -56,3 +56,13 @@ $BLENDER_PATH --background --python mesh-generators/generate_porous_mesh.py -- \
 
 > [!WARNING]
 > The wire mesh generation script is not yet implemented.
+
+### Execution
+
+To run the simulation:
+
+> Load the OpenFOAM environment.
+> Move to the `test` folder.
+> Run `chmod +x Allrun`.
+> Run `./Allrun`
+> Visualize test.OpenFOAM in Paraview.

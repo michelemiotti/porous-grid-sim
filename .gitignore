@@ -1,2 +1,10 @@
 # Ignore the exported meshes.
 exported-meshes/*.stl
+
+# Ingore simulation results.
+test/*
+!test/constant
+!test/system
+!test/0
+!test/Allclean
+!test/Allrun
