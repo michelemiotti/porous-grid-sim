@@ -104,3 +104,13 @@ $BLENDER_PATH --background --python mesh-generators/generate_wire_mesh.py -- \
     --bevel_resolution 10 \
     --wire_section_radius 0.09
 ```
+
+
+### Execution
+
+To run the simulation:
+
+> Load the OpenFOAM environment.
+> Move to the `test` folder.
+> Run `chmod +x Allrun`.
+> Run `./Allrun`
