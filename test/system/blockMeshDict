@@ -14,57 +14,47 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 /* 
-A parallelepipedal mesh with an inlet at z=0, an outlet at z=z_size, and
-periodic boundaries on the other sizes. The mesh is graded in the x and y
-directions.
+The mesh is a parallelepiped, or cylinder with square base, with the bases in the
+x-z plane. It corresponds to the ranges of coordinates [0, base], [-length/2,length/2],
+[0, base]. The mesh is graded so that it is more refined close to y=0.
 */
 
 // Constants. Change these to change the mesh.
 convertToMeters 0.01; // every size is in centimeters.
 
-x_size 1.0;
-y_size 1.0;
-z_size 10.0;
-num_x_cells 50; // must be even
-num_y_cells 50; // must be even
-num_z_cells 100;
-grading_amount 5.0;
+base 1.0;
+length 10.0;
+num_x_cells 20;
+num_y_cells 20;
+num_z_cells 100; // must be even.
+grading 5.0; // a higher number means more grading.
 
 // Derived constants.
-half_x_size #calc "$x_size / 2";
-half_y_size #calc "$y_size / 2";
-half_x_cells #calc "$num_x_cells / 2";
-half_y_cells #calc "$num_y_cells / 2";
-inverse_grading #calc "1 / $grading_amount";
+half_length #calc "$length / 2";
+negative_half_length #calc "- $length";
+half_z_cells #calc "$num_z_cells / 2";
+inverse_grading #calc "1 / $grading";
 
 vertices
 (
     (0 0 0)                             // 0
-    ($half_x_size 0 0)                  // 1
-    ($half_x_size $half_y_size 0)       // 2
-    (0 $half_y_size 0)                  // 3
-    (0 0 $z_size)                       // 4
-    ($half_x_size 0 $z_size)            // 5
-    ($half_x_size $half_y_size $z_size) // 6
-    (0 $half_y_size $z_size)            // 7
-    ($x_size 0 0)                       // 8
-    ($x_size $half_y_size 0)            // 9
-    ($x_size 0 $z_size)                 // 10
-    ($x_size $half_y_size $z_size)      // 11
-    ($half_x_size $y_size 0)            // 12
-    (0 $y_size 0)                       // 13
-    ($half_x_size $y_size $z_size)      // 14
-    (0 $y_size $z_size)                 // 15
-    ($x_size $y_size 0)                 // 16
-    ($x_size $y_size $z_size)           // 17
+    ($base 0 0)                         // 1
+    ($base $half_length 0)              // 2
+    (0 $half_length 0)                  // 3
+    (0 0 $base)                         // 4
+    ($base 0 $base)                     // 5
+    ($base $half_length $base)          // 6
+    (0 $half_length $base)              // 7
+    (0 $negative_half_length 0)         // 8
+    ($base $negative_half_length 0)     // 9
+    ($base $negative_half_length $base) // 10
+    (0 $negative_half_length $base)     // 11
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ($half_x_cells $half_y_cells $num_z_cells) simpleGrading ($grading_amount $grading_amount 1)
-    hex (1 8 9 2 5 10 11 6) ($half_x_cells $half_y_cells $num_z_cells) simpleGrading ($inverse_grading $grading_amount 1)
-    hex (3 2 12 13 7 6 14 15) ($half_x_cells $half_y_cells $num_z_cells) simpleGrading ($grading_amount $inverse_grading 1)
-    hex (2 9 16 12 6 11 17 14) ($half_x_cells $half_y_cells $num_z_cells) simpleGrading ($inverse_grading $inverse_grading 1)
+    hex (0 1 2 3 4 5 6 7) ($num_x_cells $num_y_cells $half_z_cells) simpleGrading (1 $inverse_grading 1)
+    hex (8 9 1 0 11 10 5 4) ($num_x_cells $num_y_cells $half_z_cells) simpleGrading (1 $grading 1)
 );
 
 boundary
@@ -76,70 +66,64 @@ boundary
         neighbourPatch  periodicRight; 
         faces
         (
-            (0 4 7 3)
-            (3 13 7 15)
+            (0 3 4 7)
+            (0 4 8 11)
         );
     }
 
-    // x = x_size
+    // x = base
     periodicRight
     {
         type cyclic;
         neighbourPatch  periodicLeft; 
         faces
         (
-            (8 9 10 11)
-            (9 16 17 11)
+            (1 2 5 6)
+            (1 5 9 10)
         );
     }
 
-    // y = 0
+    // z = 0
     periodicBottom
     {
         type cyclic;
         neighbourPatch  periodicTop; 
         faces
         (
-            (1 5 4 0)
-            (1 5 10 8)
+            (0 1 2 3)
+            (0 1 8 9)
         );
     }
 
-    // y = y_size
+    // z = base
     periodicTop
     {
         type cyclic;
         neighbourPatch  periodicBottom; 
         faces
         (
-            (12 13 14 15)
-            (12 16 17 14)
+            (4 5 6 7)
+            (4 5 10 11)
         );
     }
 
-    // z = 0
+    // y = length/2
     inlet
     {
         type wall;
         faces
         (
-            (0 3 2 1)
-            (1 8 9 2)
-            (2 12 13 3)
-            (2 9 16 12)
+            (2 3 6 7)
         );
     }
 
-    // z = z_size
+    // y = -length/2
     outlet
     {
         type wall;
         faces
         (
-            (4 5 6 7)
-            (5 10 11 6)
-            (6 14 15 7)
-            (11 17 14 6)
+            (8 9 10 11)
         );
     }
 );

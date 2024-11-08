@@ -9,3 +9,6 @@ test/*
 !test/Allclean
 !test/Allrun
 test/constant/polyMesh
+
+# Ingore configuration-specific helper scripts.
+source_openfoam.sh
