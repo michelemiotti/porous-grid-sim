@@ -30,7 +30,7 @@ boundaryField
         type            calculated;
         value           uniform 0;
     }
-    "periodic.*"
+    "periodic.*|grid_mesh"
     {
         type            cyclic;
     }
@@ -41,6 +41,11 @@ boundaryField
     "procBoundary[0-9]*to[0-9]*"
     {
         type            processor;
+    }
+    grid_mesh
+    {
+        type            nutUSpaldingWallFunction;
+        value           uniform 0;
     }
 }
 

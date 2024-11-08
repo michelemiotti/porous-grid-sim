@@ -13,22 +13,21 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// Which of the steps to run
-castellatedMesh true;
-snap            true;
-addLayers       true;
-
-
-
+// Constants. Change these based on the mesh and domain.
 base 1.0; // x-z size of the domain. Must be the same as blockMeshDict.
-max_thickness 1.0; // must larger than the thickness of the grid, so that
-                   // y_in_fluid is inside the fluid.
+max_thickness 1; // must larger than the thickness of the grid, so that
+                 // y_in_fluid is inside the fluid.
 
 half_thickness #calc "$max_thickness / 2";
 negative_half_thickness #calc "- $half_thickness";
 y_in_fluid #calc "$max_thickness - 0.000001";
 
 
+
+// Which of the steps to run
+castellatedMesh true;
+snap            true;
+addLayers       true;
 
 // Geometry. Definition of all surfaces. All surfaces are of class
 // searchableSurface.
@@ -41,14 +40,14 @@ geometry
     grid_mesh
     {
         type triSurfaceMesh;
-        file "../../exported-meshes/porous_mesh.stl";
+        file "grid.stl";
     }
 
     // Analytical shape; cylinder, sphere
     refinementBox
     {
         type searchableBox;
-        min (0.0 $negative_half_thickness 0);
+        min (0.0 $negative_half_thickness 0.0);
         max ($base $half_thickness $base);
     }
 };
@@ -64,14 +63,14 @@ castellatedMeshControls
     // If local number of cells is >= maxLocalCells on any processor
     // switches from from refinement followed by balancing
     // (current method) to (weighted) balancing before refinement.
-    maxLocalCells 100000;
+    maxLocalCells 10000;
 
     // Overall cell limit (approximately). Refinement will stop immediately
     // upon reaching this number so a refinement level might not complete.
     // Note that this is the number of cells before removing the part which
     // is not 'visible' from the keepPoint. The final number of cells might
     // actually be a lot less.
-    maxGlobalCells 7000000;
+    maxGlobalCells 100000;
 
     // The surface refinement loop might spend lots of iterations refining just a
     // few cells. This setting will cause refinement to stop if <= minimumRefine
@@ -122,12 +121,12 @@ castellatedMeshControls
         grid_mesh
         {
             // Surface-wise min and max refinement level
-            level (6 8);
+            level (5 6);
         }
     }
 
     // Resolve sharp angles
-    resolveFeatureAngle 60;
+    resolveFeatureAngle 30;
 
 
     // Region-wise refinement
@@ -148,7 +147,7 @@ castellatedMeshControls
         refinementBox
         {
             mode    inside;
-            level   5;
+            level   4;
         }
     }
 
@@ -161,7 +160,7 @@ castellatedMeshControls
     // section reachable from the insidePoint is kept.
     // NOTE: This point should never be on a face, always inside a cell, even
     // after refinement.
-    insidePoint (0.000001 0.000001 $y_in_fluid);
+    insidePoint (0.000001 $y_in_fluid 0.000001);
 
 
     // Whether any faceZones (as specified in the refinementSurfaces)
@@ -204,7 +203,7 @@ addLayersControls
     // Per final patch (so not geometry!) the layer information
     layers
     {
-        "(lowerWall|grid_mesh).*"
+        grid_mesh
         {
             nSurfaceLayers 1;
         }
@@ -234,7 +233,7 @@ addLayersControls
 
     // When not to extrude surface. 0 is flat surface, 90 is when two faces
     // are perpendicular
-    featureAngle 100;
+    featureAngle 60;
 
     // At non-patched sides allow mesh to slip if extrusion direction makes
     // angle larger than slipFeatureAngle. Default is 0.5*featureAngle.

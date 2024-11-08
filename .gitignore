@@ -1,5 +1,6 @@
 # Ignore the exported meshes.
 exported-meshes/*.stl
+test/constant/geometry/*.stl
 
 # Ingore simulation results.
 test/*

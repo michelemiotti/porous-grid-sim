@@ -8,6 +8,9 @@ cd ${0%/*} || exit 1
 # Set the number of processors.
 NUM_PROCESSORS=4
 
+# Choose the grid mesh.
+GRID_FILENAME=porous_mesh.stl
+
 # Run a command and check its exit code.
 run_and_check() {
     runApplication $1 $2
@@ -35,6 +38,15 @@ run_and_check blockMesh
 run_and_check checkMesh
 
 run_and_check decomposePar -copyZero
+
+cp ../exported-meshes/$GRID_FILENAME constant/geometry/grid.stl
+if ! [ $? = 0 ];
+then
+    echo "Copying the grid mesh failed!"
+    exit 1
+fi
+
+run_and_check_parallel snappyHexMesh -overwrite
 
 run_and_check_parallel renumberMesh -overwrite
 

@@ -19,9 +19,9 @@ x-z plane. It corresponds to the ranges of coordinates [0, base], [-length/2,len
 [0, base]. The mesh is graded so that it is more refined close to y=0.
 */
 
-// Constants. Change these to change the domain.
 convertToMeters 1; // every size is in meters.
 
+// Constants. Change these to change the domain.
 base 1.0;
 length 5.0;
 num_x_cells 20;

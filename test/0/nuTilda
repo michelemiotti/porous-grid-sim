@@ -30,7 +30,7 @@ boundaryField
         inletValue      uniform 0.05;
         value           uniform 0.05;
     }
-    "periodic.*"
+    "periodic.*|grid_mesh"
     {
         type            cyclic;
     }
@@ -41,6 +41,11 @@ boundaryField
     "procBoundary[0-9]*to[0-9]*"
     {
         type            processor;
+    }
+    grid_mesh
+    {
+        type            fixedValue;
+        value           uniform 0;
     }
 }
 

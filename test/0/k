@@ -43,6 +43,11 @@ boundaryField
     {
         type            processor;
     }
+    grid_mesh
+    {
+        type            kqRWallFunction;
+        value           uniform 0.24;
+    }
 }
 
 
