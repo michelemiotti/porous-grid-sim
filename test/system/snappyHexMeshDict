@@ -18,6 +18,8 @@ base 1.0; // x-z size of the domain. Must be the same as blockMeshDict.
 max_thickness 1; // must larger than the thickness of the grid, so that
                  // y_in_fluid is inside the fluid.
 
+half_base #calc "$base / 2";
+negative_half_base #calc "- $half_base";
 half_thickness #calc "$max_thickness / 2";
 negative_half_thickness #calc "- $half_thickness";
 y_in_fluid #calc "$max_thickness - 0.000001";
@@ -47,8 +49,8 @@ geometry
     refinementBox
     {
         type searchableBox;
-        min (0.0 $negative_half_thickness 0.0);
-        max ($base $half_thickness $base);
+        min ($negative_half_base $negative_half_thickness $negative_half_base);
+        max ($half_base $half_thickness $half_base);
     }
 };
 

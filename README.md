@@ -42,9 +42,9 @@ export PROJECT_DIR=/path/to/porous_grid_sim
 ```bash
 $BLENDER_PATH --background --python mesh-generators/generate_porous_mesh.py -- \
     --export_path $PROJECT_DIR/exported-meshes/porous_mesh.stl \
-    --cavity_amount 4       \
-    --cavity_diameter 0.8   \
-    --cavity_distancing 0.2 \
+    --cavity_amount 6        \
+    --cavity_diameter 0.2    \
+    --cavity_distancing 0.05 \
     --slate_thickness 0.25
 ```
 
@@ -98,11 +98,11 @@ export PROJECT_DIR=/path/to/porous_grid_sim
 ```bash
 $BLENDER_PATH --background --python mesh-generators/generate_wire_mesh.py -- \
     --export_path $PROJECT_DIR/exported-meshes/wire_mesh.stl \
-    --square_size 0.5     \
-    --square_amount 4     \
-    --overlap_offset 0.1  \
-    --bevel_resolution 10 \
-    --wire_section_radius 0.09
+    --square_size 0.25     \
+    --square_amount 6      \
+    --overlap_offset 0.1   \
+    --bevel_resolution 10  \
+    --wire_section_radius 0.05
 ```
 
 
