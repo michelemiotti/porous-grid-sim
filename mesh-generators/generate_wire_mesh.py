@@ -11,7 +11,7 @@ def parse_blender_args():
     args = {
         # These are the default values.
         "square_size": 1.2,
-        "square_amount": 12,
+        "square_amount": 4,
         "curve_smoothing_offset": 0.1,
         "overlap_offset": 0.1,
         "bevel_resolution": 16,
@@ -191,6 +191,23 @@ if __name__ == "__main__":
     )
     bpy.ops.transform.translate(
         value=(-args["square_size"] / 2, 0, -args["square_size"] / 2)
+    )
+
+    # Translate everything so that the mesh lies at the world's origin.
+    bpy.ops.object.select_all(action="SELECT")
+    bpy.ops.transform.translate(
+        value=(
+            -args["square_amount"] * args["square_size"] / 2,
+            0,
+            0,
+        )
+    )
+    bpy.ops.transform.translate(
+        value=(
+            0,
+            0,
+            -(args["square_amount"] - 1) * args["square_size"] / 2,
+        )
     )
 
     # Export the mesh.
