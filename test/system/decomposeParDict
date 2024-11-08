@@ -8,40 +8,22 @@
 FoamFile
 {
     format      ascii;
-    class       volScalarField;
-    object      nuTilda;
+    class       dictionary;
+    location    "system";
+    object      decomposeParDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 2 -1 0 0 0 0];
+numberOfSubdomains  4;
 
-internalField   uniform 0.05;
+decomposer      hierarchical;
+distributor     ptscotch;
 
-boundaryField
+hierarchicalCoeffs
 {
-    inlet
-    {
-        type            fixedValue;
-        value           uniform 0.05;
-    }
-    outlet
-    {
-        type            inletOutlet;
-        inletValue      uniform 0.05;
-        value           uniform 0.05;
-    }
-    "periodic.*"
-    {
-        type            cyclic;
-    }
-    "proc.*throughperiodic.*"
-    {
-        type            processorCyclic;
-    }
-    "procBoundary[0-9]*to[0-9]*"
-    {
-        type            processor;
-    }
+    n               (2 1 2);
+    order           xyz;
 }
+
 
 // ************************************************************************* //

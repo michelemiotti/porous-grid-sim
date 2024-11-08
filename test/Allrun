@@ -1,8 +1,12 @@
 #!/bin/sh
-cd ${0%/*} || exit 1    # Run from this directory
+# Run from this directory.
+cd ${0%/*} || exit 1    
 
-# Source tutorial run functions
+# Source tutorial run functions.
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Set the number of processors.
+NUM_PROCESSORS=4
 
 # Run a command and check its exit code.
 run_and_check() {
@@ -15,11 +19,28 @@ run_and_check() {
     fi
 }
 
+# Run a command in parallel and check its exit code.
+run_and_check_parallel() {
+    runParallel -np $NUM_PROCESSORS $1 $2
+
+    if ! [ $? = 0 ];
+    then
+        echo "$1 failed!"
+        exit 1
+    fi
+}
+
 run_and_check blockMesh
 
 run_and_check checkMesh
 
-run_and_check foamRun
+run_and_check decomposePar -copyZero
+
+run_and_check_parallel renumberMesh -overwrite
+
+run_and_check_parallel potentialFoam -initialiseUBCs
+
+run_and_check_parallel $(getApplication)
 
 run_and_check paraFoam -touch
 

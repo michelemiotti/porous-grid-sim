@@ -19,20 +19,20 @@ x-z plane. It corresponds to the ranges of coordinates [0, base], [-length/2,len
 [0, base]. The mesh is graded so that it is more refined close to y=0.
 */
 
-// Constants. Change these to change the mesh.
-convertToMeters 0.01; // every size is in centimeters.
+// Constants. Change these to change the domain.
+convertToMeters 1; // every size is in meters.
 
 base 1.0;
-length 10.0;
+length 5.0;
 num_x_cells 20;
-num_y_cells 20;
-num_z_cells 100; // must be even.
+num_y_cells 100; // must be even.
+num_z_cells 20;
 grading 5.0; // a higher number means more grading.
 
 // Derived constants.
 half_length #calc "$length / 2";
-negative_half_length #calc "- $length";
-half_z_cells #calc "$num_z_cells / 2";
+negative_half_length #calc "- $half_length";
+half_y_cells #calc "$num_y_cells / 2";
 inverse_grading #calc "1 / $grading";
 
 vertices
@@ -53,8 +53,8 @@ vertices
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ($num_x_cells $num_y_cells $half_z_cells) simpleGrading (1 $inverse_grading 1)
-    hex (8 9 1 0 11 10 5 4) ($num_x_cells $num_y_cells $half_z_cells) simpleGrading (1 $grading 1)
+    hex (0 1 2 3 4 5 6 7) ($num_x_cells $half_y_cells $num_z_cells) simpleGrading (1 $grading 1)
+    hex (8 9 1 0 11 10 5 4) ($num_x_cells $half_y_cells $num_z_cells) simpleGrading (1 $inverse_grading 1)
 );
 
 boundary

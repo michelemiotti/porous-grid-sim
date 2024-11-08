@@ -34,6 +34,14 @@ boundaryField
     {
         type            cyclic;
     }
+    "proc.*throughperiodic.*"
+    {
+        type            processorCyclic;
+    }
+    "procBoundary[0-9]*to[0-9]*"
+    {
+        type            processor;
+    }
 }
 
 
