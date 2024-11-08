@@ -56,13 +56,13 @@ if __name__ == "__main__":
         enter_editmode=False,
         align="WORLD",
         location=(0, 0, 0),
-        scale=(args["slate_thickness"], slate_width, slate_width),
+        scale=(slate_width, args["slate_thickness"], slate_width),
     )
 
     # Create a `Cylinder` object that contains an array of cylinders.
     for i in range(args["cavity_amount"]):
         for j in range(args["cavity_amount"]):
-            y = (
+            x = (
                 -slate_width / 2
                 + args["cavity_distancing"] / 2
                 + args["cavity_diameter"] / 2
@@ -80,10 +80,10 @@ if __name__ == "__main__":
                 vertices=args["circle_vertices"],
                 enter_editmode=True,
                 align="WORLD",
-                location=(0, y, z),
+                location=(x, 0, z),
                 scale=(1, 1, args["slate_thickness"] * 2),
                 radius=args["cavity_diameter"] / 2,
-                rotation=(0, pi / 2, 0),
+                rotation=(pi / 2, 0, 0),
             )
 
     # Get a reference to the two objects.

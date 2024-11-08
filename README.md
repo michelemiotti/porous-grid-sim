@@ -99,7 +99,7 @@ export PROJECT_DIR=/path/to/porous_grid_sim
 $BLENDER_PATH --background --python mesh-generators/generate_wire_mesh.py -- \
     --export_path $PROJECT_DIR/exported-meshes/wire_mesh.stl \
     --square_size 1.2     \
-    --square_amount 64    \
+    --square_amount 4     \
     --overlap_offset 0.1  \
     --bevel_resolution 10 \
     --wire_section_radius 0.09
