@@ -16,19 +16,20 @@ FoamFile
 
 dimensions      [0 2 -2 0 0 0 0];
 
-internalField   uniform 0.00375;
+internalField   uniform 0.24;
 
 boundaryField
 {
     inlet
     {
-        type            kqRWallFunction;
-        value           uniform 0.00375;
+        type            fixedValue;
+        value           uniform 0.24;
     }
     outlet
     {
-        type            kqRWallFunction;
-        value           uniform 0.00375;
+        type            inletOutlet;
+        inletValue      uniform 0.24;
+        value           uniform 0.24;
     }
     "periodic.*"
     {
