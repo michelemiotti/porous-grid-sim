@@ -1,10 +1,12 @@
 # Ignore the exported meshes.
 exported-meshes/*.stl
 test/constant/geometry/*.stl
+test/constant/geometry/*.eMesh
 
 # Ingore simulation results.
 test/*
 !test/constant
+test/constant/extendedFeatureEdgeMesh
 !test/system
 !test/0
 !test/Allclean

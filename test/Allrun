@@ -9,7 +9,7 @@ cd ${0%/*} || exit 1
 NUM_PROCESSORS=4
 
 # Choose the grid mesh.
-GRID_FILENAME=porous_mesh.stl
+GRID_FILENAME=wire_mesh.stl
 
 # Run a command and check its exit code.
 run_and_check() {
@@ -45,6 +45,8 @@ then
     echo "Copying the grid mesh failed!"
     exit 1
 fi
+
+run_and_check surfaceFeatures
 
 run_and_check_parallel snappyHexMesh -overwrite
 
