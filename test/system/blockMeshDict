@@ -24,40 +24,32 @@ convertToMeters 1; // every size is in meters.
 
 // Constants. Change these to change the domain.
 base 1.0;
-length 5.0;
+length 10.0;
 num_x_cells 20;
-num_y_cells 100; // must be even.
-num_z_cells 20;
-grading 5.0; // a higher number means more grading.
 
 // Derived constants.
 half_base #calc "$base / 2";
 negative_half_base #calc "- $half_base";
 half_length #calc "$length / 2";
 negative_half_length #calc "- $half_length";
-half_y_cells #calc "$num_y_cells / 2";
-inverse_grading #calc "1 / $grading";
+num_y_cells #calc "$num_x_cells * $length / $base";
+num_z_cells #calc "$num_x_cells";
 
 vertices
 (
-    ($negative_half_base 0 $negative_half_base)                     // 0
-    ($half_base 0 $negative_half_base)                              // 1
+    ($negative_half_base $negative_half_length $negative_half_base) // 0
+    ($half_base $negative_half_length $negative_half_base)          // 1
     ($half_base $half_length $negative_half_base)                   // 2
     ($negative_half_base $half_length $negative_half_base)          // 3
-    ($negative_half_base 0 $half_base)                              // 4
-    ($half_base 0 $half_base)                                       // 5
+    ($negative_half_base $negative_half_length $half_base)          // 4
+    ($half_base $negative_half_length $half_base)                   // 5
     ($half_base $half_length $half_base)                            // 6
     ($negative_half_base $half_length $half_base)                   // 7
-    ($negative_half_base $negative_half_length $negative_half_base) // 8
-    ($half_base $negative_half_length $negative_half_base)          // 9
-    ($half_base $negative_half_length $half_base)                   // 10
-    ($negative_half_base $negative_half_length $half_base)          // 11
 );
 
 blocks
 (
-    hex (0 1 2 3 4 5 6 7) ($num_x_cells $half_y_cells $num_z_cells) simpleGrading (1 $grading 1)
-    hex (8 9 1 0 11 10 5 4) ($num_x_cells $half_y_cells $num_z_cells) simpleGrading (1 $inverse_grading 1)
+    hex (0 1 2 3 4 5 6 7) ($num_x_cells $num_y_cells $num_z_cells) simpleGrading (1 1 1)
 );
 
 boundary
@@ -66,11 +58,10 @@ boundary
     periodicLeft
     {
         type cyclic;
-        neighbourPatch  periodicRight; 
+        neighbourPatch periodicRight; 
         faces
         (
             (0 3 4 7)
-            (0 4 8 11)
         );
     }
 
@@ -78,11 +69,10 @@ boundary
     periodicRight
     {
         type cyclic;
-        neighbourPatch  periodicLeft; 
+        neighbourPatch periodicLeft; 
         faces
         (
             (1 2 5 6)
-            (1 5 9 10)
         );
     }
 
@@ -90,11 +80,10 @@ boundary
     periodicBottom
     {
         type cyclic;
-        neighbourPatch  periodicTop; 
+        neighbourPatch periodicTop; 
         faces
         (
             (0 1 2 3)
-            (0 1 8 9)
         );
     }
 
@@ -102,11 +91,10 @@ boundary
     periodicTop
     {
         type cyclic;
-        neighbourPatch  periodicBottom; 
+        neighbourPatch periodicBottom; 
         faces
         (
             (4 5 6 7)
-            (4 5 10 11)
         );
     }
 
@@ -126,7 +114,7 @@ boundary
         type wall;
         faces
         (
-            (8 9 10 11)
+            (0 1 4 5)
         );
     }
 );

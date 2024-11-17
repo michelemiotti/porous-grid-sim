@@ -15,21 +15,27 @@ FoamFile
 
 // Constants. Change these based on the mesh and domain.
 base 1.0; // x-z size of the domain. Must be the same as blockMeshDict.
-max_thickness 1; // must larger than the thickness of the grid, so that
-                 // y_in_fluid is inside the fluid.
+y_in_fluid 1.00001; // A y value inside of the fluid.
+thickness_1 0.3; // Thickness to use the highest refinement on (inlet side).
+thickness_2 0.5; // Thickness to use the second highest refinement on (inlet side).
+thickness_3 0.7; // Thickness to use the third highest refinement on (inlet side).
+thickness_ratio 4.0; // Ratio between outlet and inlet side thicknesses.
 
 half_base #calc "$base / 2";
 negative_half_base #calc "- $half_base";
-half_thickness #calc "$max_thickness / 2";
-negative_half_thickness #calc "- $half_thickness";
-y_in_fluid #calc "$max_thickness - 0.000001";
+y_inlet_1 #calc "- $thickness_1";
+y_inlet_2 #calc "- $thickness_2";
+y_inlet_3 #calc "- $thickness_3";
+y_outlet_1 #calc "$thickness_1 * $thickness_ratio";
+y_outlet_2 #calc "$thickness_2 * $thickness_ratio";
+y_outlet_3 #calc "$thickness_3 * $thickness_ratio";
 
 
 
 // Which of the steps to run
 castellatedMesh true;
 snap            true;
-addLayers       false;
+addLayers       true;
 
 // Geometry. Definition of all surfaces. All surfaces are of class
 // searchableSurface.
@@ -46,11 +52,25 @@ geometry
     }
 
     // Analytical shape; cylinder, sphere
-    refinementBox
+    refinementBox1
     {
         type searchableBox;
-        min ($negative_half_base $negative_half_thickness $negative_half_base);
-        max ($half_base $half_thickness $half_base);
+        min ($negative_half_base $y_inlet_1 $negative_half_base);
+        max ($half_base $y_outlet_1 $half_base);
+    }
+
+    refinementBox2
+    {
+        type searchableBox;
+        min ($negative_half_base $y_inlet_2 $negative_half_base);
+        max ($half_base $y_outlet_2 $half_base);
+    }
+
+    refinementBox3
+    {
+        type searchableBox;
+        min ($negative_half_base $y_inlet_3 $negative_half_base);
+        max ($half_base $y_outlet_3 $half_base);
     }
 };
 
@@ -65,14 +85,14 @@ castellatedMeshControls
     // If local number of cells is >= maxLocalCells on any processor
     // switches from from refinement followed by balancing
     // (current method) to (weighted) balancing before refinement.
-    maxLocalCells 100000;
+    maxLocalCells 10000000;
 
     // Overall cell limit (approximately). Refinement will stop immediately
     // upon reaching this number so a refinement level might not complete.
     // Note that this is the number of cells before removing the part which
     // is not 'visible' from the keepPoint. The final number of cells might
     // actually be a lot less.
-    maxGlobalCells 1000000;
+    maxGlobalCells 10000000;
 
     // The surface refinement loop might spend lots of iterations refining just a
     // few cells. This setting will cause refinement to stop if <= minimumRefine
@@ -103,7 +123,7 @@ castellatedMeshControls
     (
         {
             file "grid.eMesh";
-            level 6;
+            level 3;
         }
     );
 
@@ -123,7 +143,7 @@ castellatedMeshControls
         grid_mesh
         {
             // Surface-wise min and max refinement level
-            level (6 6);
+            level (3 3);
         }
     }
 
@@ -146,10 +166,22 @@ castellatedMeshControls
 
     refinementRegions
     {
-        refinementBox
+        refinementBox1
         {
             mode    inside;
-            level   4;
+            level   3;
+        }
+
+        refinementBox2
+        {
+            mode    inside;
+            level   2;
+        }
+
+        refinementBox3
+        {
+            mode    inside;
+            level   1;
         }
     }
 
