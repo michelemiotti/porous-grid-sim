@@ -211,4 +211,4 @@ if __name__ == "__main__":
     )
 
     # Export the mesh.
-    bpy.ops.wm.obj_export(filepath=args["export_path"])
+    bpy.ops.wm.obj_export(filepath=args["export_path"], up_axis='Z', forward_axis='Y')

@@ -10,19 +10,10 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      decomposeParDict;
+    object      faSolution;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains  4;
-
-method      hierarchical;
-
-hierarchicalCoeffs
-{
-    n               (2 1 2);
-    order           xyz;
-}
-
+solvers {}
 
 // ************************************************************************* //

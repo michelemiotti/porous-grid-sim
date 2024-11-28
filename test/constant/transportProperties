@@ -10,19 +10,13 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      decomposeParDict;
+    object      transportProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains  4;
+transportModel  Newtonian;
 
-method      hierarchical;
-
-hierarchicalCoeffs
-{
-    n               (2 1 2);
-    order           xyz;
-}
+nu              1.5e-05;
 
 
 // ************************************************************************* //

@@ -6,4 +6,20 @@ cd ${0%/*} || exit 1    # Run from this directory
 
 cleanCase
 
+# Remove a file safely
+remove_file() {
+    if [ -f $1 ];
+    then
+        rm $1
+    fi
+    if [ -d $1 ];
+    then
+        rm -r $1
+    fi
+}
+
+remove_file constant/triSurface/grid.eMesh
+remove_file constant/triSurface/grid.obj
+remove_file constant/extendedFeatureEdgeMesh
+
 #------------------------------------------------------------------------------

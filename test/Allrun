@@ -9,7 +9,7 @@ cd ${0%/*} || exit 1
 NUM_PROCESSORS=4
 
 # Choose the grid mesh.
-GRID_FILENAME=porous_mesh.stl
+GRID_FILENAME=wire_mesh.obj
 
 # Run a command and check its exit code.
 run_and_check() {
@@ -33,28 +33,34 @@ run_and_check_parallel() {
     fi
 }
 
-run_and_check blockMesh
-
-run_and_check checkMesh
-
-cp ../exported-meshes/$GRID_FILENAME constant/geometry/grid.stl
+cp ../exported-meshes/$GRID_FILENAME constant/triSurface/grid.obj
 if ! [ $? = 0 ];
 then
     echo "Copying the grid mesh failed!"
     exit 1
 fi
 
-run_and_check surfaceFeatures
+run_and_check surfaceFeatureExtract
 
-run_and_check snappyHexMesh -overwrite
+run_and_check blockMesh
 
-run_and_check decomposePar -copyZero
+run_and_check decomposePar
 
-run_and_check_parallel renumberMesh -overwrite
+run_and_check_parallel snappyHexMesh -overwrite
 
-run_and_check_parallel potentialFoam -initialiseUBCs
+run_and_check_parallel topoSet
+
+run_and_check restore0Dir -processor
+
+run_and_check_parallel $decompDict patchSummary
+
+run_and_check_parallel potentialFoam -writephi
 
 run_and_check_parallel $(getApplication)
+
+run_and_check reconstructParMesh -constant
+
+run_and_check reconstructPar -latestTime
 
 paraFoam -touch
 for (( i=0; i<$NUM_PROCESSORS; ++i )); 

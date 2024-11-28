@@ -10,19 +10,23 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      decomposeParDict;
+    object      faSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-numberOfSubdomains  4;
+ddtSchemes {}
 
-method      hierarchical;
+gradSchemes {}
 
-hierarchicalCoeffs
-{
-    n               (2 1 2);
-    order           xyz;
-}
+divSchemes {}
+
+laplacianSchemes {}
+
+interpolationSchemes {}
+
+lnGradSchemes {}
+
+fluxRequired {}
 
 
 // ************************************************************************* //
