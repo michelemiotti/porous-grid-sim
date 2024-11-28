@@ -1,6 +1,10 @@
 # Ignore the exported meshes.
 exported-meshes/*.stl
+exported-meshes/*.mtl
+exported-meshes/*.obj
 test/constant/geometry/*.stl
+test/constant/geometry/*.mtl
+test/constant/geometry/*.obj
 test/constant/geometry/*.eMesh
 
 # Ingore simulation results.
@@ -15,3 +19,9 @@ test/constant/polyMesh
 
 # Ingore configuration-specific helper scripts.
 source_openfoam.sh
+
+# Paraview
+ParaView-5.13.1-MPI-Linux-Python3.10-x86_64/
+
+# VPN files.
+vpn/

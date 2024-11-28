@@ -24,7 +24,7 @@ cavities are of the same diameter and are equally spaced. The slate has a
 constant thickness, and the amount of cavities is equal in both directions.
 The script takes the following parameters:
 
-- `export_path`: The path to the exported `.stl` file.
+- `export_path`: The path to the exported `.obj` file.
 - `cavity_amount`: The number of cavities in the grid.
 - `cavity_diameter`: The diameter of the cavities.
 - `cavity_distancing`: The distance between the cavities.
@@ -41,7 +41,7 @@ export PROJECT_DIR=/path/to/porous_grid_sim
 
 ```bash
 $BLENDER_PATH --background --python mesh-generators/generate_porous_mesh.py -- \
-    --export_path $PROJECT_DIR/exported-meshes/porous_mesh.stl \
+    --export_path $PROJECT_DIR/exported-meshes/porous_mesh.obj \
     --cavity_amount 6        \
     --cavity_diameter 0.2    \
     --cavity_distancing 0.05 \
@@ -60,7 +60,7 @@ The wire mesh generation script generates a wire mesh assembled as a grid of
 square cells. The wires travel above and below each other, at each intersection.
 The script takes the following parameters:
 
-- `export_path`: The path to the exported `.stl` file.
+- `export_path`: The path to the exported `.obj` file.
 - `square_size`: The size of the square cells. This does not take into account
   the thickness of the wires.
 - `square_amount`: The number of squares in the grid. Note that, by looking at
@@ -97,7 +97,7 @@ export PROJECT_DIR=/path/to/porous_grid_sim
 
 ```bash
 $BLENDER_PATH --background --python mesh-generators/generate_wire_mesh.py -- \
-    --export_path $PROJECT_DIR/exported-meshes/wire_mesh.stl \
+    --export_path $PROJECT_DIR/exported-meshes/wire_mesh.obj \
     --square_size 0.25     \
     --square_amount 6      \
     --overlap_offset 0.1   \

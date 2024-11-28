@@ -105,4 +105,4 @@ if __name__ == "__main__":
     bpy.ops.object.delete(use_global=False)
 
     # Export the mesh.
-    bpy.ops.wm.stl_export(filepath=args["export_path"], use_scene_unit=True)
+    bpy.ops.wm.obj_export(filepath=args["export_path"])
