@@ -104,5 +104,13 @@ if __name__ == "__main__":
     bpy.ops.object.mode_set(mode="OBJECT")
     bpy.ops.object.delete(use_global=False)
 
+    # Select the slate object and enter edit mode.
+    bpy.context.view_layer.objects.active = slate
+    bpy.ops.object.mode_set(mode="EDIT")
+
+    # Select all the vertices.
+    bpy.ops.mesh.select_all(action="SELECT")
+    bpy.ops.mesh.quads_convert_to_tris(quad_method="BEAUTY", ngon_method="BEAUTY")
+
     # Export the mesh.
     bpy.ops.wm.obj_export(filepath=args["export_path"])
