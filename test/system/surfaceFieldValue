@@ -1,0 +1,29 @@
+cpAvgInlet
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    enabled         yes;
+    writeControl    writeTime;
+    log             yes;
+    writeFields     yes;
+    surfaceFormat   vtk;
+    regionType      patch;
+    name            inlet;
+    operation       average;
+    fields          (cpMean);
+    surfaceFormat   ensight;
+}
+
+cpAvgOutlet
+{
+    type            surfaceFieldValue;
+    libs            (fieldFunctionObjects);
+    writeControl    writeTime;
+    log             yes;
+    writeFields     yes;
+    regionType      patch;
+    name            outlet;
+    operation       average;
+    fields          (cpMean);
+    surfaceFormat   ensight;
+}

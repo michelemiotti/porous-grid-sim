@@ -13,11 +13,11 @@ num_z_subdomains = -1
 
 for line in data:
     if "num_x_subdomains" in line:
-        num_x_subdomains = int(line.split(" ")[1].split(";")[0])
+        num_x_subdomains = int(line.split(" ")[-1].split(";")[0])
     if "num_y_subdomains" in line:
-        num_y_subdomains = int(line.split(" ")[1].split(";")[0])
+        num_y_subdomains = int(line.split(" ")[-1].split(";")[0])
     if "num_z_subdomains" in line:
-        num_z_subdomains = int(line.split(" ")[1].split(";")[0])
+        num_z_subdomains = int(line.split(" ")[-1].split(";")[0])
 
 if num_x_subdomains < 1 or num_y_subdomains < 1 or num_z_subdomains < 1:
     sys.exit(-1)

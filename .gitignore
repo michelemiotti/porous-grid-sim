@@ -14,7 +14,7 @@ test/*
 !test/0.orig
 !test/Allclean
 !test/Allrun
-!test/extract_num_processors.py
+!test/*.py
 test/constant/polyMesh
 test/constant/extendedFeatureEdgeMesh
 

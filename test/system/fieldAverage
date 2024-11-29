@@ -6,10 +6,28 @@
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 
-referenceVelocity    20;
-flowVelocity         (0 $referenceVelocity 0);
-pressure             0;
-turbulentKE          0.24;
-turbulentOmega       1.78;
+cpAverageOverIter
+{
+    type            fieldAverage;
+    libs            (fieldFunctionObjects);
+    writeControl    writeTime;
+
+    fields
+    (
+        cp
+        {
+            mean        on;
+            prime2Mean  on;
+            base        iteration;
+        }
+    );
+
+    restartOnRestart    false;
+    restartOnOutput     false;
+    periodicRestart     true;
+    restartPeriod       5;
+}
+
+
 
 // ************************************************************************* //

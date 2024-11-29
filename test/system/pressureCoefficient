@@ -1,0 +1,18 @@
+pressure1
+{
+    #include "../0.orig/include/initialConditions"
+
+    type            pressure;
+    libs            (fieldFunctionObjects);
+
+    writeControl    writeTime;
+
+    mode            staticCoeff;
+
+    result          cp;
+
+    rho             rhoInf;
+    rhoInf          1;
+    pInf            $pressure;
+    UInf            (0 $referenceVelocity 0);
+}

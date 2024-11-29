@@ -44,5 +44,11 @@ timePrecision   6;
 
 runTimeModifiable true;
 
+functions
+{
+    #include "pressureCoefficient"
+    #include "fieldAverage"
+    #include "surfaceFieldValue"
+}
 
 // ************************************************************************* //

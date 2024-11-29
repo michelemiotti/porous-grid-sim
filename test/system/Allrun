@@ -75,11 +75,6 @@ done
 # Note: when visualizing, use u/U_inlet and Cp = 2p/U_inlet^2, when p is the OpenFOAM pressure (which is divided by the density).
 # If Cp = 1, all energy is pressure energy, and the liquid is still. Before the grid, it is expected that Cp is almost 1.
 
-python3 compute_pressure_drop.py
-if ! [ $? = 0 ];
-then
-    echo "Computation of pressure drop coefficient failed!"
-    exit 1
-fi
+# TODO: add calculation of pressure drop (use probe/sampling function object). Add fieldAverage.
 
 #------------------------------------------------------------------------------
