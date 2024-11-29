@@ -14,8 +14,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// TODO: change turbulence to k-epsilon? Cehck literature.
-
 application     simpleFoam;
 
 startFrom       startTime;

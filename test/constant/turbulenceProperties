@@ -16,6 +16,8 @@ FoamFile
 
 simulationType      RAS;
 
+// TODO: change turbulence to k-epsilon? Check literature. Maybe used in piping.
+
 RAS
 {
     RASModel        kOmegaSST;
