@@ -23,10 +23,7 @@ refined close to y=0.
 
 scale 1; // every size is in meters.
 
-// Constants. Change these to change the domain.
-base 1.0;
-length 10.0;
-num_x_cells 20;
+#include "include/meshParameters"
 
 // Derived constants.
 half_base #eval "$base / 2";
@@ -100,7 +97,7 @@ boundary
     }
 
     // y = length/2
-    inlet
+    outlet
     {
         type patch;
         faces
@@ -110,7 +107,7 @@ boundary
     }
 
     // y = -length/2
-    outlet
+    inlet
     {
         type patch;
         faces

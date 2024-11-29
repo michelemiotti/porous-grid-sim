@@ -14,12 +14,7 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// Constants. Change these based on the mesh and domain.
-base 1.0; // x-z size of the domain. Must be the same as blockMeshDict.
-y_in_fluid 1.00001; // A y value inside of the fluid.
-thickness_1 0.3; // Thickness to use the highest refinement on (inlet side).
-thickness_2 0.5; // Thickness to use the second highest refinement on (inlet side).
-thickness_ratio 4.0; // Ratio between outlet and inlet side thicknesses.
+#include "include/meshParameters"
 
 half_base #eval "$base / 2";
 negative_half_base #eval "- $half_base";

@@ -9,24 +9,40 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      faSchemes;
+    class       volVectorField;
+    object      U;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-ddtSchemes {}
+#include        "include/initialConditions"
 
-gradSchemes {}
+dimensions      [0 1 -1 0 0 0 0];
 
-divSchemes {}
+internalField   uniform $flowVelocity;
 
-laplacianSchemes {}
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
 
-interpolationSchemes {}
+    #include "include/fixedInlet"
 
-lnGradSchemes {}
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      uniform (0 0 0);
+        value           $internalField;
+    }
 
-fluxRequired {}
+    "periodic.*"
+    {
+        type            cyclic;
+    }
+
+    grid_mesh
+    {
+        type            noSlip;
+    }
+}
 
 
 // ************************************************************************* //

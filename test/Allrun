@@ -6,7 +6,12 @@ cd ${0%/*} || exit 1
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
 # Set the number of processors.
-NUM_PROCESSORS=4
+NUM_PROCESSORS=$(python3 extract_num_processors.py 2>&1)
+if ! [ $? = 0 ];
+then
+    echo "Extraction of number of processors failed!"
+    exit 1
+fi
 
 # Choose the grid mesh.
 GRID_FILENAME=wire_mesh.obj
@@ -48,8 +53,6 @@ run_and_check decomposePar
 
 run_and_check_parallel snappyHexMesh -overwrite
 
-run_and_check_parallel topoSet
-
 run_and_check restore0Dir -processor
 
 run_and_check_parallel $decompDict patchSummary
@@ -69,5 +72,9 @@ do
     paraFoam -touch
     cd ..
 done
+# Note: when visualizing, use u/U_inlet and Cp = 2p/U_inlet^2, when p is the OpenFOAM pressure (which is divided by the density).
+# If Cp = 1, all energy is pressure energy, and the liquid is still. Before the grid, it is expected that Cp is almost 1.
+
+# TODO: add calculation of pressure drop (use probe/sampling function object).
 
 #------------------------------------------------------------------------------

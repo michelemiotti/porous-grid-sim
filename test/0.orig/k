@@ -9,42 +9,42 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      controlDict;
+    class       volScalarField;
+    object      k;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-// TODO: change turbulence to k-epsilon? Cehck literature.
+#include        "include/initialConditions"
 
-application     simpleFoam;
+dimensions      [0 2 -2 0 0 0 0];
 
-startFrom       startTime;
+internalField   uniform $turbulentKE;
 
-startTime       0;
+boundaryField
+{
+    #includeEtc "caseDicts/setConstraintTypes"
 
-stopAt          endTime;
+    //- Define inlet conditions
+    #include "include/fixedInlet"
 
-endTime         100;
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      $internalField;
+        value           $internalField;
+    }
 
-deltaT          1;
+    "periodic.*"
+    {
+        type            cyclic;
+    }
 
-writeControl    timeStep;
-
-writeInterval   5;
-
-purgeWrite      0;
-
-writeFormat     binary;
-
-writePrecision  6;
-
-writeCompression off;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable true;
+    grid_mesh
+    {
+        type            kqRWallFunction;
+        value           $internalField;
+    }
+}
 
 
 // ************************************************************************* //
