@@ -10,53 +10,33 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      fvSchemes;
+    object      surfaceFeatureExtractDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-ddtSchemes
+grid.obj
 {
-    default         steadyState;
+    // How to obtain raw features (extractFromFile || extractFromSurface)
+    extractionMethod    extractFromSurface;
+
+    // Mark edges whose adjacent surface normals are at an angle less
+    // than includedAngle as features
+    // - 0  : selects no edges
+    // - 180: selects all edges
+    includedAngle       170;
+
+    subsetFeatures
+    {
+        // Keep nonManifold edges (edges with >2 connected faces)
+        nonManifoldEdges       no;
+
+        // Keep open edges (edges with 1 connected face)
+        openEdges       yes;
+    }
+
+
+    // Write options
+
+    // Write features to obj format for postprocessing
+    writeObj            yes;
 }
-
-gradSchemes
-{
-    default         Gauss linear;
-    grad(U)         cellLimited Gauss linear 1;
-}
-
-divSchemes
-{
-    default         none;
-
-    div(phi,U)      bounded Gauss linearUpwindV grad(U);
-
-    turbulence      bounded Gauss upwind;
-    div(phi,k)      $turbulence;
-    div(phi,omega)  $turbulence;
-
-    div((nuEff*dev2(T(grad(U))))) Gauss linear;
-}
-
-laplacianSchemes
-{
-    default         Gauss linear corrected;
-}
-
-interpolationSchemes
-{
-    default         linear;
-}
-
-snGradSchemes
-{
-    default         corrected;
-}
-
-wallDist
-{
-    method          meshWave;
-}
-
-
-// ************************************************************************* //

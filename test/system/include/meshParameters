@@ -1,0 +1,25 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+// Length in meters of the side of the square base of the mesh.
+base 1.0; 
+// Length in meters of the height of the mesh.
+length 10.0; 
+// Number of cells in the x direction. 
+// The number of cells in the other directions will be chosen so that the subdomains are cubes.
+num_x_cells 20;
+// A value of y guaranteed to be inside the fluid for any x,z in the domain.
+y_in_fluid 1.00001;
+// Thickness to use the highest refinement on (on the inlet side).
+thickness_1 0.3; 
+// Thickness to use the second highest refinement on (on the inlet side).
+thickness_2 0.5; 
+// Ratio between outlet and inlet side thicknesses for refinements.
+thickness_ratio 4.0; 
+
+// ************************************************************************* //

@@ -5,26 +5,14 @@
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
-FoamFile
-{
-    version     2.0;
-    format      ascii;
-    class       dictionary;
-    object      decomposeParDict;
-}
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#include "include/decomposeOptions"
+// Number of subdomains in the x (base) direction.
+num_x_subdomains 4;
 
-numberOfSubdomains  #calc "$num_x_subdomains * $num_y_subdomains * $num_z_subdomains";
+// Number of subdomains in the y (height) direction.
+num_y_subdomains 1;
 
-method      hierarchical;
-
-hierarchicalCoeffs
-{
-    n               ($num_x_subdomains $num_y_subdomains $num_z_subdomains);
-    order           xyz;
-}
-
+// Number of subdomains in the z (base) direction.
+num_z_subdomains 2;
 
 // ************************************************************************* //

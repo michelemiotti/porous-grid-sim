@@ -113,4 +113,4 @@ if __name__ == "__main__":
     bpy.ops.mesh.quads_convert_to_tris(quad_method="BEAUTY", ngon_method="BEAUTY")
 
     # Export the mesh.
-    bpy.ops.wm.obj_export(filepath=args["export_path"])
+    bpy.ops.wm.obj_export(filepath=args["export_path"], up_axis='Z', forward_axis='Y')

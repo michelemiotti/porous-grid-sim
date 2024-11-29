@@ -2,11 +2,12 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     | Website:  https://openfoam.org
-    \\  /    A nd           | Version:  12
+    \\  /    A nd           | Version:  v2306
      \\/     M anipulation  |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
+    version     2.0;
     format      ascii;
     class       dictionary;
     object      blockMeshDict;
@@ -20,20 +21,17 @@ x-z plane. It corresponds to the ranges of coordinates [-base/2, base/2],
 refined close to y=0.
 */
 
-convertToMeters 1; // every size is in meters.
+scale 1; // every size is in meters.
 
-// Constants. Change these to change the domain.
-base 1.0;
-length 10.0;
-num_x_cells 20;
+#include "include/meshParameters"
 
 // Derived constants.
-half_base #calc "$base / 2";
-negative_half_base #calc "- $half_base";
-half_length #calc "$length / 2";
-negative_half_length #calc "- $half_length";
-num_y_cells #calc "$num_x_cells * $length / $base";
-num_z_cells #calc "$num_x_cells";
+half_base #eval "$base / 2";
+negative_half_base #eval "- $half_base";
+half_length #eval "$length / 2";
+negative_half_length #eval "- $half_length";
+num_y_cells #eval "$num_x_cells * $length / $base";
+num_z_cells #eval "$num_x_cells";
 
 vertices
 (
@@ -99,9 +97,9 @@ boundary
     }
 
     // y = length/2
-    inlet
+    outlet
     {
-        type wall;
+        type patch;
         faces
         (
             (2 3 6 7)
@@ -109,9 +107,9 @@ boundary
     }
 
     // y = -length/2
-    outlet
+    inlet
     {
-        type wall;
+        type patch;
         faces
         (
             (0 1 4 5)

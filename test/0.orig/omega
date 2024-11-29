@@ -9,21 +9,40 @@ FoamFile
 {
     version     2.0;
     format      ascii;
-    class       dictionary;
-    object      decomposeParDict;
+    class       volScalarField;
+    object      omega;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-#include "include/decomposeOptions"
+#include        "include/initialConditions"
 
-numberOfSubdomains  #calc "$num_x_subdomains * $num_y_subdomains * $num_z_subdomains";
+dimensions      [0 0 -1 0 0 0 0];
 
-method      hierarchical;
+internalField   uniform $turbulentOmega;
 
-hierarchicalCoeffs
+boundaryField
 {
-    n               ($num_x_subdomains $num_y_subdomains $num_z_subdomains);
-    order           xyz;
+    #includeEtc "caseDicts/setConstraintTypes"
+
+    #include "include/fixedInlet"
+
+    outlet
+    {
+        type            inletOutlet;
+        inletValue      $internalField;
+        value           $internalField;
+    }
+
+    "periodic.*"
+    {
+        type            cyclic;
+    }
+
+    grid_mesh
+    {
+        type            omegaWallFunction;
+        value           $internalField;
+    }
 }
 
 

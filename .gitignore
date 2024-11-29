@@ -11,9 +11,10 @@ test/constant/geometry/*.eMesh
 test/*
 !test/constant
 !test/system
-!test/0
+!test/0.orig
 !test/Allclean
 !test/Allrun
+!test/extract_num_processors.py
 test/constant/polyMesh
 test/constant/extendedFeatureEdgeMesh
 
@@ -25,3 +26,6 @@ ParaView-5.13.1-MPI-Linux-Python3.10-x86_64/
 
 # VPN files.
 vpn/
+
+# Vscode files.
+.vscode

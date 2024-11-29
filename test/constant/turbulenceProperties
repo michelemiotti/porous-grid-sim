@@ -10,52 +10,21 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      fvSchemes;
+    object      turbulenceProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-ddtSchemes
+simulationType      RAS;
+
+// TODO: change turbulence to k-epsilon? Check literature. Maybe used in piping.
+
+RAS
 {
-    default         steadyState;
-}
+    RASModel        kOmegaSST;
 
-gradSchemes
-{
-    default         Gauss linear;
-    grad(U)         cellLimited Gauss linear 1;
-}
+    turbulence      on;
 
-divSchemes
-{
-    default         none;
-
-    div(phi,U)      bounded Gauss linearUpwindV grad(U);
-
-    turbulence      bounded Gauss upwind;
-    div(phi,k)      $turbulence;
-    div(phi,omega)  $turbulence;
-
-    div((nuEff*dev2(T(grad(U))))) Gauss linear;
-}
-
-laplacianSchemes
-{
-    default         Gauss linear corrected;
-}
-
-interpolationSchemes
-{
-    default         linear;
-}
-
-snGradSchemes
-{
-    default         corrected;
-}
-
-wallDist
-{
-    method          meshWave;
+    printCoeffs     on;
 }
 
 

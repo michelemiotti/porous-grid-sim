@@ -5,26 +5,11 @@
 |   \\  /    A nd           | Website:  www.openfoam.com                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
-FoamFile
+
+inlet
 {
-    version     2.0;
-    format      ascii;
-    class       dictionary;
-    object      decomposeParDict;
+    type  fixedValue;
+    value $internalField;
 }
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
-#include "include/decomposeOptions"
-
-numberOfSubdomains  #calc "$num_x_subdomains * $num_y_subdomains * $num_z_subdomains";
-
-method      hierarchical;
-
-hierarchicalCoeffs
-{
-    n               ($num_x_subdomains $num_y_subdomains $num_z_subdomains);
-    order           xyz;
-}
-
 
 // ************************************************************************* //
