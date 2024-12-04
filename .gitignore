@@ -14,6 +14,7 @@ test/*
 !test/0.orig
 !test/Allclean
 !test/Allrun
+!test/Allrun_cluster
 !test/*.py
 test/constant/polyMesh
 test/constant/extendedFeatureEdgeMesh

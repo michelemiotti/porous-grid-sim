@@ -1,0 +1,62 @@
+#!/bin.bash
+#$ -cwd                 # workingDirectory
+#$ -j y
+#$ -N PorousGridSim
+#$ -S /bin/bash
+#$ -q mecc.q                   # queueName
+#$ -pe mpi 8           # cpuNumber
+#$ -l h_rt=48:00:00
+#----------------------------------------------------------
+
+module load /software/modulefiles/old_systems/CFD/openfoam-v2112 	#per mecc.q e mecc2.q
+
+#module use /software/modulefiles/old_systems/CFD/			#per mecc4.q
+#module load openfoam-v2112						#	
+
+#----------------------------------------------------------
+# #!/bin/bash
+
+NUM_PROCESSORS=8
+GRID_FILENAME=wire_mesh.obj
+
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+exit 0
+# (Testing if run functions work).
+
+#Initializing OF case
+mkdir logs
+cp -r 0.orig 0
+cp -r RANSFile_1st/* system/			#copying setups for 1st order accuracy
+# Build Background mesh
+#☺surfaceFeatureExtract > logs/01_surfaceFeature.log 2>&1
+#blockMesh > logs/02_blockMesh.log 2>&1
+#topoSet > logs/03_topoSet.log 2>&1
+#createPatch -overwrite > logs/04_createPatch.log 2>&1
+#decomposePar > logs/05_decompose.log 2>&1
+#mpirun --hostfile machinefile.$JOB_ID -np 20 snappyHexMesh -parallel -overwrite > logs/06_snappyHexMesh.log 2>&1
+#reconstructParMesh -constant > logs/07_reconstruct.log 2>&1
+#rm -rf processor*
+#checkMesh > logs/08_checkMesh.log 2>&1
+# run the RANS simulation
+rm -rf processor*
+rm -r 0
+cp -r 0.orig 0
+# 1st order simulation
+decomposePar > logs/09_decomposePar.log 2>&1
+mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS potentialFoam -parallel > logs/10_potentialFoam.log 2>&1
+mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS simpleFoam -parallel > logs/11_simpleFoam1st.log 2>&1
+# 2nd order simulation
+cp -r /RANSFile_2nd/* system/                 #copying setups for 2nd order accuracy
+mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS simpleFoam -parallel > logs/12_simpleFoam2nd.log 2>&1
+reconstructPar > logs/13_reconstructPar.log 2>&1
+rm -r processor*
+# run the URANS simulation
+rm -r 0
+cp -r 0.orig 0
+cp -r URANSFile/* system/                 #copying setups for 2nd order accuracy
+decomposePar > logs/14_decomposePar.log 2>&1
+mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS potentialFoam -parallel > logs/15_potentialFoam.log 2>&1
+mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS pimpleFoam -parallel > logs/16_pimpleFoam.log 2>&1
+reconstructPar > logs/17_reconstructPar.log 2>&1
+
+
