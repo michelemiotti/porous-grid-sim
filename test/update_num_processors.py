@@ -42,19 +42,19 @@ found_second = False
 for idx, line in enumerate(data):
     if line.startswith("#$ -pe mpi"):
         if found_first:
-            print("Error in Allrun_cluster format. Halting.")
+            print("Error in Allrun_cluster format! Halting.")
             sys.exit(1)
         data[idx] = "#$ -pe mpi " + str(num_processors) + "           # cpuNumber\n"
         found_first = True
     if line.startswith("NUM_PROCESSORS="):
         if found_second:
-            print("Error in Allrun_cluster format. Halting.")
+            print("Error in Allrun_cluster format! Halting.")
             sys.exit(1)
         data[idx] = "NUM_PROCESSORS=" + str(num_processors) + "\n"
         found_second = True
 
 if not found_first or not found_second:
-    print("Error in Allrun_cluster format. Halting.")
+    print("Error in Allrun_cluster format! Halting.")
     sys.exit(1)
 
 with open("Allrun_cluster", "w") as f:
@@ -74,25 +74,25 @@ found_z = False
 for idx, line in enumerate(data):
     if line.startswith("num_x_subdomains"):
         if found_x:
-            print("Error in decomposeOptions format. Halting.")
+            print("Error in decomposeOptions format! Halting.")
             sys.exit(1)
         data[idx] = "num_x_subdomains " + str(args.x) + ";\n"
         found_x = True
     if line.startswith("num_y_subdomains"):
         if found_y:
-            print("Error in decomposeOptions format. Halting.")
+            print("Error in decomposeOptions format! Halting.")
             sys.exit(1)
         data[idx] = "num_y_subdomains " + str(args.y) + ";\n"
         found_y = True
     if line.startswith("num_z_subdomains"):
         if found_z:
-            print("Error in decomposeOptions format. Halting.")
+            print("Error in decomposeOptions format! Halting.")
             sys.exit(1)
         data[idx] = "num_z_subdomains " + str(args.z) + ";\n"
         found_z = True
 
 if not found_x or not found_y or not found_z:
-    print("Error in decomposeOptions format. Halting.")
+    print("Error in decomposeOptions format! Halting.")
     sys.exit(1)
 
 with open("system/include/decomposeOptions", "w") as f:

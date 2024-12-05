@@ -18,6 +18,8 @@ test/*
 !test/*.py
 test/constant/polyMesh
 test/constant/extendedFeatureEdgeMesh
+test/constant/triSurface/*.eMesh
+test/constant/triSurface/*.obj
 
 # Ingore configuration-specific helper scripts.
 source_openfoam.sh

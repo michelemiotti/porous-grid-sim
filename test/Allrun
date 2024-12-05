@@ -14,7 +14,7 @@ then
 fi
 
 # Choose the grid mesh.
-GRID_FILENAME=wire_mesh.obj
+GRID_FILENAME=porous_mesh.obj
 
 # Run a command and check its exit code.
 run_and_check() {
@@ -54,8 +54,6 @@ run_and_check decomposePar
 run_and_check_parallel snappyHexMesh -overwrite
 
 run_and_check restore0Dir -processor
-
-run_and_check_parallel $decompDict patchSummary
 
 run_and_check_parallel potentialFoam -writephi
 

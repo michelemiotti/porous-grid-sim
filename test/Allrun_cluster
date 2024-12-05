@@ -3,15 +3,13 @@
 #$ -j y
 #$ -N PorousGridSim
 #$ -S /bin/bash
-#$ -q mecc.q                   # queueName
+#$ -q all.q                   # queueName
 #$ -pe mpi 8           # cpuNumber
 #$ -l h_rt=48:00:00
 #----------------------------------------------------------
 
-module load /software/modulefiles/old_systems/CFD/openfoam-v2112 	#per mecc.q e mecc2.q
-
-#module use /software/modulefiles/old_systems/CFD/			#per mecc4.q
-#module load openfoam-v2112						#	
+module use /software/spack/spack/share/spack/modules/linux-rocky8-sandybridge/
+module load openfoam/2306-gcc-13.2.0-tnytlfv
 
 #----------------------------------------------------------
 # #!/bin/bash
@@ -19,44 +17,96 @@ module load /software/modulefiles/old_systems/CFD/openfoam-v2112 	#per mecc.q e 
 NUM_PROCESSORS=8
 GRID_FILENAME=wire_mesh.obj
 
-. $WM_PROJECT_DIR/bin/tools/RunFunctions
-exit 0
-# (Testing if run functions work).
+# Run a command and check its exit code.
+run_and_check() {
+    $1 $2 > log.$1 2>&1
 
-#Initializing OF case
-mkdir logs
-cp -r 0.orig 0
-cp -r RANSFile_1st/* system/			#copying setups for 1st order accuracy
-# Build Background mesh
-#☺surfaceFeatureExtract > logs/01_surfaceFeature.log 2>&1
-#blockMesh > logs/02_blockMesh.log 2>&1
-#topoSet > logs/03_topoSet.log 2>&1
-#createPatch -overwrite > logs/04_createPatch.log 2>&1
-#decomposePar > logs/05_decompose.log 2>&1
-#mpirun --hostfile machinefile.$JOB_ID -np 20 snappyHexMesh -parallel -overwrite > logs/06_snappyHexMesh.log 2>&1
-#reconstructParMesh -constant > logs/07_reconstruct.log 2>&1
-#rm -rf processor*
-#checkMesh > logs/08_checkMesh.log 2>&1
-# run the RANS simulation
-rm -rf processor*
-rm -r 0
-cp -r 0.orig 0
-# 1st order simulation
-decomposePar > logs/09_decomposePar.log 2>&1
-mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS potentialFoam -parallel > logs/10_potentialFoam.log 2>&1
-mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS simpleFoam -parallel > logs/11_simpleFoam1st.log 2>&1
-# 2nd order simulation
-cp -r /RANSFile_2nd/* system/                 #copying setups for 2nd order accuracy
-mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS simpleFoam -parallel > logs/12_simpleFoam2nd.log 2>&1
-reconstructPar > logs/13_reconstructPar.log 2>&1
-rm -r processor*
-# run the URANS simulation
-rm -r 0
-cp -r 0.orig 0
-cp -r URANSFile/* system/                 #copying setups for 2nd order accuracy
-decomposePar > logs/14_decomposePar.log 2>&1
-mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS potentialFoam -parallel > logs/15_potentialFoam.log 2>&1
-mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS pimpleFoam -parallel > logs/16_pimpleFoam.log 2>&1
-reconstructPar > logs/17_reconstructPar.log 2>&1
+    if ! [ $? = 0 ];
+    then
+        echo "$1 failed!"
+        exit 1
+    fi
+}
 
+# Run a command in parallel and check its exit code.
+run_and_check_parallel() {
+    mpirun --hostfile machinefile.$JOB_ID -np $NUM_PROCESSORS $1 -parallel $2 > log.$1 2>&1
 
+    if ! [ $? = 0 ];
+    then
+        echo "$1 failed!"
+        exit 1
+    fi
+}
+
+cp ../exported-meshes/$GRID_FILENAME constant/triSurface/grid.obj
+if ! [ $? = 0 ];
+then
+    echo "Copying the grid mesh failed!"
+    exit 1
+fi
+
+restore0Dir()
+{
+    if [ ! -d 0.orig ]
+    then
+        echo "No 0.orig/ to restore..." 1>&2
+        return 0
+    fi
+
+    case "$1" in
+    -proc | -processor | -processors)
+        echo "Restore 0/ from 0.orig/  [processor directories]"
+
+        \ls -d processor* | xargs -I {} \rm -rf ./{}/0
+        \ls -d processor* | xargs -I {} \cp -r 0.orig ./{}/0 > /dev/null 2>&1
+
+        # Remove '#include' directives from field dictionaries
+        # for collated format
+        if [ "$1" = "-processors" ]
+        then
+        (
+            echo "Filter #include directives in processors/0:"
+            \cd processors/0 2>/dev/null || exit 0
+            for file in $(grep -l "#include" * 2>/dev/null)
+            do
+                foamDictionary "$file" > "$file.$$." && mv "$file.$$." "$file"
+                echo "    $file"
+            done | tr -d '\n'
+            echo
+        )
+        fi
+        ;;
+
+    *)
+        echo "Restore 0/ from 0.orig/"
+        \rm -rf 0
+        \cp -r 0.orig 0 2>/dev/null
+        ;;
+    esac
+}
+
+run_and_check restore0Dir -processor
+
+run_and_check surfaceFeatureExtract
+
+run_and_check blockMesh
+
+run_and_check decomposePar
+
+run_and_check_parallel snappyHexMesh -overwrite
+
+run_and_check_parallel potentialFoam -writephi
+
+run_and_check_parallel simpleFoam
+
+run_and_check reconstructParMesh -constant
+
+run_and_check reconstructPar -latestTime
+
+python3 compute_pressure_drop.py
+if ! [ $? = 0 ];
+then
+    echo "Computation of pressure drop coefficient failed!"
+    exit 1
+fi
