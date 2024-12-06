@@ -2,24 +2,24 @@
 exported-meshes/*.stl
 exported-meshes/*.mtl
 exported-meshes/*.obj
-test/constant/geometry/*.stl
-test/constant/geometry/*.mtl
-test/constant/geometry/*.obj
-test/constant/geometry/*.eMesh
+simulation/constant/geometry/*.stl
+simulation/constant/geometry/*.mtl
+simulation/constant/geometry/*.obj
+simulation/constant/geometry/*.eMesh
 
 # Ingore simulation results.
-test/*
-!test/constant
-!test/system
-!test/0.orig
-!test/Allclean
-!test/Allrun
-!test/Allrun_cluster
-!test/*.py
-test/constant/polyMesh
-test/constant/extendedFeatureEdgeMesh
-test/constant/triSurface/*.eMesh
-test/constant/triSurface/*.obj
+simulation/*
+!simulation/constant
+!simulation/system
+!simulation/0.orig
+!simulation/Allclean
+!simulation/Allrun
+!simulation/Allrun_cluster
+!simulation/*.py
+simulation/constant/polyMesh
+simulation/constant/extendedFeatureEdgeMesh
+simulation/constant/triSurface/*.eMesh
+simulation/constant/triSurface/*.obj
 
 # Ingore configuration-specific helper scripts.
 source_openfoam.sh

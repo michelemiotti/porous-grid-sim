@@ -21,5 +21,6 @@ remove_file() {
 remove_file constant/triSurface/grid.eMesh
 remove_file constant/triSurface/grid.obj
 remove_file constant/extendedFeatureEdgeMesh
+remove_file 0
 
 #------------------------------------------------------------------------------
