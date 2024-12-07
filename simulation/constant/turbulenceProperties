@@ -16,15 +16,27 @@ FoamFile
 
 simulationType      RAS;
 
-// TODO: change turbulence to k-epsilon? Check literature. Maybe used in piping.
+// Values obtained from C.Y. Wu, Y.M. Ferng, C.C. Chieng, C.C. Liu,
+// "Investigating the advantages and disadvantages of realistic approach 
+// and porous approach for closely packed pebbles in CFD simulation".
 
 RAS
 {
-    RASModel        kOmegaSST;
+    RASModel        kEpsilon;
 
     turbulence      on;
 
     printCoeffs     on;
+
+    kEpsilonCoeffs
+    {
+        Cmu         0.09;
+        C1          1.44;
+        C2          1.92;
+        sigmak      1.0;
+        sigmaEps    1.3;
+        sigmaT      0.9;
+    }
 }
 
 

@@ -15,7 +15,8 @@ have a working `blender` executable in your machine. You can download it
 
 Mesh generation is done using `blender`. So far, two types of meshes can be
 generated: porous and wire meshes. Further details on how to generate each type
-of mesh are provided below.
+of mesh are provided below. The generated mesh has to be saved as
+`simulation/constant/triSurface/grid.obj` for the simulation to use it.
 
 ### Porous Mesh Generation
 

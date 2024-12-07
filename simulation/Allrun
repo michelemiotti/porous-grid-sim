@@ -13,9 +13,6 @@ then
     exit 1
 fi
 
-# Choose the grid mesh.
-GRID_FILENAME=porous_mesh.obj
-
 # Run a command and check its exit code.
 run_and_check() {
     runApplication $1 $2
@@ -37,13 +34,6 @@ run_and_check_parallel() {
         exit 1
     fi
 }
-
-cp ../exported-meshes/$GRID_FILENAME constant/triSurface/grid.obj
-if ! [ $? = 0 ];
-then
-    echo "Copying the grid mesh failed!"
-    exit 1
-fi
 
 run_and_check surfaceFeatureExtract
 

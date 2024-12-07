@@ -10,27 +10,25 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    object      omega;
+    object      epsilon;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #include        "include/initialConditions"
 
-dimensions      [0 0 -1 0 0 0 0];
+dimensions      [0 2 -3 0 0 0 0];
 
-internalField   uniform $turbulentOmega;
+internalField   uniform $turbulentEpsilon;
 
 boundaryField
 {
-    #includeEtc "caseDicts/setConstraintTypes"
-
+    //- Define inlet conditions
     #include "include/fixedInlet"
 
     outlet
     {
         type            inletOutlet;
         inletValue      $internalField;
-        value           $internalField;
     }
 
     "periodic.*"
@@ -38,9 +36,19 @@ boundaryField
         type            cyclic;
     }
 
+    "proc.*throughperiodic.*"
+    {
+        type            processorCyclic;
+    }
+    
+    "procBoundary[0-9]*to[0-9]*"
+    {
+        type            processor;
+    }
+
     grid_mesh
     {
-        type            omegaWallFunction;
+        type            epsilonWallFunction;
         value           $internalField;
     }
 }

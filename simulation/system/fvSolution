@@ -47,7 +47,7 @@ solvers
         nSweeps         1;
     }
 
-    omega
+    epsilon
     {
         solver          smoothSolver;
         smoother        GaussSeidel;
@@ -74,7 +74,7 @@ relaxationFactors
     {
         U               0.9;
         k               0.7;
-        omega           0.7;
+        epsilon         0.7;
     }
 }
 

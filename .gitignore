@@ -20,6 +20,7 @@ simulation/constant/polyMesh
 simulation/constant/extendedFeatureEdgeMesh
 simulation/constant/triSurface/*.eMesh
 simulation/constant/triSurface/*.obj
+simulation/constant/triSurface/*.mtl
 
 # Ingore configuration-specific helper scripts.
 source_openfoam.sh

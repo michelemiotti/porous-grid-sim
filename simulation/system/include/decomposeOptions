@@ -13,6 +13,6 @@ num_x_subdomains 4;
 num_y_subdomains 1;
 
 // Number of subdomains in the z (base) direction.
-num_z_subdomains 2;
+num_z_subdomains 4;
 
 // ************************************************************************* //

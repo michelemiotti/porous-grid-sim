@@ -7,19 +7,22 @@
 \*---------------------------------------------------------------------------*/
 
 // Length in meters of the side of the square base of the mesh.
-base 1.0; 
+base 0.25;
 // Length in meters of the height of the mesh.
-length 10.0; 
+length 2.5;
 // Number of cells in the x direction. 
 // The number of cells in the other directions will be chosen so that the subdomains are cubes.
 num_x_cells 20;
 // A value of y guaranteed to be inside the fluid for any x,z in the domain.
-y_in_fluid 1.00001;
-// Thickness to use the highest refinement on (on the inlet side).
-thickness_1 0.3; 
-// Thickness to use the second highest refinement on (on the inlet side).
-thickness_2 0.5; 
+y_in_fluid 1.249999;
+// Thickness to use the highest refinement on (on the inlet side) compared to base length.
+thickness_1_rel 0.03; 
+// Thickness to use the second highest refinement on (on the inlet side) compared to base length.
+thickness_2_rel 0.05; 
 // Ratio between outlet and inlet side thicknesses for refinements.
 thickness_ratio 4.0; 
+
+thickness_1 #eval "$thickness_1_rel * $length";
+thickness_2 #eval "$thickness_2_rel * $length";
 
 // ************************************************************************* //
