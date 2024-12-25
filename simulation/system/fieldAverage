@@ -16,16 +16,14 @@ cpAverageOverIter
     (
         cp
         {
-            mean        on;
-            prime2Mean  on;
-            base        iteration;
+            mean         yes;
+            prime2Mean   no;
+            base         iteration;
+            windowType   exact;
+            window       10.0;
+            allowRestart true;
         }
     );
-
-    restartOnRestart    false;
-    restartOnOutput     false;
-    periodicRestart     true;
-    restartPeriod       5;
 }
 
 

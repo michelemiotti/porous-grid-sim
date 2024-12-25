@@ -1,4 +1,4 @@
-# Periodicity test
+# Periodicity test - DONE
 For each of the two grids, check different numbers of copies of the domains before periodicity is applied. Keep other parameters fixed. Save values of k.
 
 # Test on mesh independence
@@ -14,4 +14,4 @@ For each of the two grids, test different angles of attack. Keep other parameter
 For each of the two grids, test different speeds. Keep other parameters fixed. Save values of k.
 
 # Scaling test
-For each of the two grids, check performace scaling over multiple cores. Keep other parameters fixed. Save execution time.
+For each of the two grids, check performace scaling over multiple cores. Keep other parameters fixed. Use both a small mesh and a big one. Save execution time.

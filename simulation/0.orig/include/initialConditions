@@ -6,7 +6,7 @@
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 
-referenceVelocity    20;
+referenceVelocity    10;
 flowVelocity         (0 $referenceVelocity 0);
 pressure             0;
 turbulentKE          0.24;

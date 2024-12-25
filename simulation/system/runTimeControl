@@ -1,0 +1,63 @@
+runTimeControl1
+{
+    // Check if the average cpAvgInlet change in the last 20 iterations is below 1e-3.
+    type            runTimeControl;
+    libs            (utilityFunctionObjects);
+    conditions
+    {
+        condition1
+        {
+            type            average;
+            functionObject  cpAvgInlet;
+            fields          (average(inlet,cpMean));
+            tolerance       1e-3;
+            window          20;
+            windowType      exact;
+        }
+    }
+    satisfiedAction setTrigger;
+    trigger         1;
+}
+
+runTimeControl2
+{
+    // After runTimeControl1 is satisfied, do 100 more iterations.
+    type            runTimeControl;
+    libs            (utilityFunctionObjects);
+
+    controlMode     trigger;
+    triggerStart    1;
+    conditions
+    {
+        condition2
+        {
+            type            maxDuration;
+            duration        100;
+        }
+    }
+    satisfiedAction setTrigger;
+    trigger         2;
+}
+
+runTimeControl3
+{
+    // Finally, perform the same check on Cp mean change again.
+    type            runTimeControl;
+    libs            (utilityFunctionObjects);
+
+    controlMode     trigger;
+    triggerStart    2;
+    conditions
+    {
+        condition3
+        {
+            type            average;
+            functionObject  cpAvgInlet;
+            fields          (average(inlet,cpMean));
+            tolerance       1e-3;
+            window          20;
+            windowType      exact;
+        }
+    }
+    satisfiedAction end;
+}

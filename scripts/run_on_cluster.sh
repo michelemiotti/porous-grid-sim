@@ -8,4 +8,5 @@ then
 fi
 
 # Start the simulation.
+echo "Running on cluster"
 ./scripts/password_wrapper $2 ssh $1@calimero.energia.polimi.it > /dev/null "cd /global-scratch/$1/porous-grid-sim/simulation && qsub Allrun_cluster"

@@ -20,8 +20,10 @@ half_base #eval "$base / 2";
 negative_half_base #eval "- $half_base";
 y_inlet_1 #eval "- $thickness_1";
 y_inlet_2 #eval "- $thickness_2";
+y_inlet_3 #eval "- $thickness_3";
 y_outlet_1 #eval "$thickness_1 * $thickness_ratio";
 y_outlet_2 #eval "$thickness_2 * $thickness_ratio";
+y_outlet_3 #eval "$thickness_3 * $thickness_ratio";
 
 
 
@@ -58,6 +60,13 @@ geometry
         min ($negative_half_base $y_inlet_2 $negative_half_base);
         max ($half_base $y_outlet_2 $half_base);
     }
+
+    refinementBox3
+    {
+        type searchableBox;
+        min ($negative_half_base $y_inlet_3 $negative_half_base);
+        max ($half_base $y_outlet_3 $half_base);
+    }
 };
 
 
@@ -72,14 +81,14 @@ castellatedMeshControls
     // If local number of cells is >= maxLocalCells on any processor
     // switches from from refinement followed by balancing
     // (current method) to (weighted) balancing before refinement.
-    maxLocalCells 1000000;
+    maxLocalCells 100000000;
 
     // Overall cell limit (approximately). Refinement will stop immediately
     // upon reaching this number so a refinement level might not complete.
     // Note that this is the number of cells before removing the part which
     // is not 'visible' from the keepPoint. The final number of cells might
     // actually be a lot less.
-    maxGlobalCells 10000000;
+    maxGlobalCells 1000000000;
 
     // The surface refinement loop might spend lots of iterations refining just a
     // few cells. This setting will cause refinement to stop if <= minimumRefine
@@ -110,7 +119,7 @@ castellatedMeshControls
     (
         {
             file "grid.eMesh";
-            level 2;
+            level $grid_refinement;
         }
     );
 
@@ -130,7 +139,7 @@ castellatedMeshControls
         grid_mesh
         {
             // Surface-wise min and max refinement level
-            level (2 2);
+            level ($grid_refinement $grid_refinement);
 
             // Optional specification of patch type (default is wall). No
             // constraint types (cyclic, symmetry) etc. are allowed.
@@ -164,10 +173,16 @@ castellatedMeshControls
         refinementBox1
         {
             mode    inside;
-            levels  ((1E15 2));
+            levels  ((1E15 3));
         }
 
         refinementBox2
+        {
+            mode    inside;
+            levels  ((1E15 2));
+        }
+
+        refinementBox3
         {
             mode    inside;
             levels  ((1E15 1));

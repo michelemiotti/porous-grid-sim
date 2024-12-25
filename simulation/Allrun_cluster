@@ -39,13 +39,6 @@ run_and_check_parallel() {
     fi
 }
 
-cp ../exported-meshes/$GRID_FILENAME constant/triSurface/grid.obj
-if ! [ $? = 0 ];
-then
-    echo "Copying the grid mesh failed!"
-    exit 1
-fi
-
 restore0Dir()
 {
     if [ ! -d 0.orig ]
