@@ -24,6 +24,8 @@ y_inlet_3 #eval "- $thickness_3";
 y_outlet_1 #eval "$thickness_1 * $thickness_ratio";
 y_outlet_2 #eval "$thickness_2 * $thickness_ratio";
 y_outlet_3 #eval "$thickness_3 * $thickness_ratio";
+box_2_refinement #eval "$box_3_refinement + 1";
+box_1_refinement #eval "$box_2_refinement + 1";
 
 
 
@@ -173,19 +175,19 @@ castellatedMeshControls
         refinementBox1
         {
             mode    inside;
-            levels  ((1E15 3));
+            levels  ((1E15 $box_1_refinement));
         }
 
         refinementBox2
         {
             mode    inside;
-            levels  ((1E15 2));
+            levels  ((1E15 $box_2_refinement));
         }
 
         refinementBox3
         {
             mode    inside;
-            levels  ((1E15 1));
+            levels  ((1E15 $box_3_refinement));
         }
     }
 
