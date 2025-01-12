@@ -24,6 +24,7 @@ simulation/constant/triSurface/*.mtl
 
 # Ingore configuration-specific helper scripts.
 source_openfoam.sh
+source-openfoam.sh
 
 # Paraview
 ParaView-5.13.1-MPI-Linux-Python3.10-x86_64/
