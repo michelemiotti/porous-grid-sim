@@ -30,8 +30,8 @@ half_base #eval "$base / 2";
 negative_half_base #eval "- $half_base";
 half_length #eval "$length / 2";
 negative_half_length #eval "- $half_length";
-num_y_cells #eval "$num_x_cells * $length / $base";
-num_z_cells #eval "$num_x_cells";
+num_y_cells #eval "round($num_x_cells * $length / $base)";
+num_z_cells #eval "round($num_x_cells)";
 
 vertices
 (

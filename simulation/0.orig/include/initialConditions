@@ -6,8 +6,13 @@
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 
+angleAttack          0.0;
 referenceVelocity    10;
-flowVelocity         (0 $referenceVelocity 0);
+
+yVel #eval "cos(degToRad($angleAttack)) * $referenceVelocity";
+xVel #eval "sin(degToRad($angleAttack)) * $referenceVelocity";
+
+flowVelocity         ($xVel $yVel 0);
 pressure             0;
 turbulentKE          0.24;
 turbulentEpsilon     1;

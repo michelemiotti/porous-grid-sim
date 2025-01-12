@@ -1,0 +1,14 @@
+Porous mesh results (cavity_diameter 2 cm, cavity_distancing 0.5 cm, slate_thickness 2.5 cm, 4x4 copies):
+(first mesh in grid_refinement.txt)
+(referenceVelocity 10)
+angleAttack,            k,               y inlet velocity
+0                       2.83248          10
+5                       2.81712          9.9619
+10                      2.77696          9.8481
+15                      2.71166          9.6592
+20                      2.62853          9.3969
+25                      2.52935          9.0631
+30                      2.40984          8.6603
+-10                     2.77686          9.8481
+-> no difference for positive/negative (there would be an error otherwise)
+-> k around linear with yVelocity
