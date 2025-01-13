@@ -8,7 +8,7 @@ import os
 
 """ ----------------- EDITABLE SETTINGS -----------------"""
 # Choose the mesh. The options are "porous", "grid".
-mesh = "porous"
+mesh = "grid"
 
 # Options for porous mesh (in meters).
 # Meaning explained in README.md.
@@ -25,7 +25,7 @@ wire_section_radius = 0.5 / 100
 
 # Options for the domain.
 length = 1.0  # Length of the domain in meters.
-num_copies = 4  # Number of copies of the grid before periodicity is applied.
+num_copies = 2  # Number of copies of the grid before periodicity is applied.
 # Note that for the "grid" mesh, this is half the number of squares.
 """ ----------------- EDITABLE SETTINGS -----------------"""
 
