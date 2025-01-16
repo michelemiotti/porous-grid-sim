@@ -10,7 +10,7 @@ Porous mesh results (cavity_diameter 2 cm, cavity_distancing 0.5 cm, slate_thick
 -> using 4x4 copies (to keep the same size as the other mesh)
 
 Grid mesh results (square_size 2.5 cm, overlap_offset 0.6 cm, bevel_resolution 10, wire_section_radius 0.5 cm, n copies means 2n squares):
-3 x 3 copies: k = 3.12936
-2 x 2 copies: k = 3.15705
-1 x 1 copies: k = 2.15747
+3 x 3 copies: k = 3.01131
+2 x 2 copies: k = 3.09337
+1 x 1 copies: k = 1.87652
 -> using 2x2 copies is enough

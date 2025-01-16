@@ -7,7 +7,7 @@
 \*---------------------------------------------------------------------------*/
 
 // Length in meters of the side of the square base of the mesh.
-base 0.1;
+base 0.15000000000000002;
 // Length in meters of the height of the mesh.
 length 1.0;
 // Number of cells in the x direction. 
@@ -16,17 +16,17 @@ num_x_cells 20;
 // A value of y guaranteed to be inside the fluid for any x,z in the domain.
 y_in_fluid 0.499999;
 // Thickness to use the highest refinement on (on the inlet side) compared to base length.
-thickness_1_rel 0.00; 
+thickness_1_rel 0.1; 
 // Thickness to use the second highest refinement on (on the inlet side) compared to base length.
-thickness_2_rel 0.01;
+thickness_2_rel 0.15;
 // Thickness to use the third highest refinement on (on the inlet side) compared to base length.
-thickness_3_rel 0.03;
+thickness_3_rel 0.2;
 // Ratio between outlet and inlet side thicknesses for refinements.
 thickness_ratio 4.0; 
 // Refinement for box 3.
 box_3_refinement 1;
 // Refinement level for the grid.
-grid_refinement 2;
+grid_refinement 5;
 // includedAngle for surfaceFeatureExtract.
 extractAngle 130;
 
