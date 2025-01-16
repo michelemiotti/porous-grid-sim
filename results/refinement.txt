@@ -14,3 +14,19 @@ box_3_refinement, thick_1_rel, thick_2_rel, thick_3_rel, ratio, grid_refinement,
 
 Grid mesh results (square_size 2.5 cm, overlap_offset 0.6 cm, wire_section_radius 0.5 cm, bevel_resolution 10, 2x2 copies, inlet speed 10):
 1                 0.00         0.01         0.03         4.0    2                130           357657     1083659     370169     3.093
+
+
+
+### Set up on Michele's laptop, 6 cores. x=3 y=1 z=2, extractAngle=130
+box_3_refinement, thick_1_rel, thick_2_rel, thick_3_rel, ratio, grid_refinement
+1                 0.00         0.01         0.03         4.0    2                  cells:357664    faces:1083680   points:370176   k=3.08967
+1                 0.00         0.01         0.03         4.0    3                  cells:595334    faces:1843376   points:662223   k=1.79692
+1                 0.01         0.03         0.05         4.0    3                  cells:2426016   faces:7315904   points:2473184  k=1.87884
+1                 0.01         0.03         0.05         4.0    4                  cells:3361296   faces:10338547  points:3657883  k=2.03956
+1                 0.00         0.50         0.50         1.0    2                  cells:5086080   faces:15268352  points:5098000  k=3.12788
+1                 0.02         0.06         0.10         4.0    4                  cells:5956336   faces:18122611  points:6251851  k=2.09858
+1                 0.05         0.10         0.20         4.0    4                  cells:12340336  faces:37274611  points:12635851 k=2.09879
+2                 0.01         0.03         0.05         4.0    4
+2                 0.01         0.03         0.05         4.0    5
+1                 0.10         0.15         0.20         4.0    5
+1                 0.50         0.50         0.50         1.0    5
