@@ -70,4 +70,8 @@ then
     exit 1
 fi
 
+# Sound notification.
+# Might be useful if you want to be notified when the simulation is done.
+# paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+
 #------------------------------------------------------------------------------
