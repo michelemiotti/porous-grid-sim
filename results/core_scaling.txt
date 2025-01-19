@@ -1,0 +1,8 @@
+Porous mesh results (cavity_diameter 2 cm, cavity_distancing 0.5 cm, slate_thickness 2.5 cm, 4x4 copies):
+(last mesh in grid_refinement.txt)
+cores, snappy time (s), solver time (s)
+32     queued fpesce
+
+Grid mesh results (square_size 2.5 cm, overlap_offset 0.6 cm, wire_section_radius 0.5 cm, bevel_resolution 10, 2x2 copies, inlet speed 10):
+(last mesh in grid_refinement.txt)
+32     queued mmiotti

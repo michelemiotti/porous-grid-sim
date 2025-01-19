@@ -14,5 +14,5 @@ pressure1
     rho             rhoInf;
     rhoInf          1;
     pInf            $pressure;
-    UInf            (0 $referenceVelocity 0);
+    UInf            ($xVel $yVel 0);
 }

@@ -6,7 +6,7 @@ import os
 # Make sure to run this script inside "simulation" and to have
 # the environmental variable "BLENDER_PATH" set correctly.
 
-""" ----------------- EDITABLE SETTINGS -----------------"""
+""" ----------------- EDITABLE SETTINGS ----------------- """
 # Choose the mesh. The options are "porous", "grid".
 mesh = "grid"
 
@@ -27,7 +27,7 @@ wire_section_radius = 0.5 / 100
 length = 1.0  # Length of the domain in meters.
 num_copies = 2  # Number of copies of the grid before periodicity is applied.
 # Note that for the "grid" mesh, this is half the number of squares.
-""" ----------------- EDITABLE SETTINGS -----------------"""
+""" ----------------- EDITABLE SETTINGS ----------------- """
 
 
 # Compute the derived parameters.

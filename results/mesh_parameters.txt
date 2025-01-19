@@ -1,17 +1,38 @@
 Porous mesh results (4x4 copies, inlet speed 10, first mesh in refinement.txt):
-cavity_diameter (cm), cavity_distancing (cm), slate_thickness (cm), k
-2                     0.5                     0.625                 2.76027
-2                     0.5                     1.25                  2.84406
-2                     0.5                     2.5                   2.83248
-2                     0.5                     5                     2.91072
-2                     0.5                     7.5                   3.0048
-2                     0.5                     10                    3.12328
--> linear scaling with thickness, but small effect                           ,    hole diameter/total length ratio,     hole area/total area ratio
-1.25                  1.25                    2.5                   34.7274       0.5                                   0.196350
-1.5                   1                       2.5                   14.4402       0.6                                   0.282743
-1.75                  0.75                    2.5                   6.32234       0.7                                   0.384845
-2                     0.5                     2.5                   2.83248       0.8                                   0.502654
-2.25                  0.25                    2.5                   1.18552       0.9                                   0.636172
-2.4                   0.1                     2.5                   0.626318      0.96                                  0.723823
-2.475                 0.025                   2.5                   0.43754       0.99                                  0.769769
+cavity_diameter (cm), cavity_distancing (cm), slate_thickness (cm),     k
+2                     0.5                     0.625                     2.76027
+2                     0.5                     1.25                      2.84406
+2                     0.5                     2.5                       2.83248
+2                     0.5                     5                         2.91072
+2                     0.5                     7.5                       3.0048
+2                     0.5                     10                        3.12328
+-> linear scaling with thickness, but small effect                               ,    hole diameter/total length ratio,     hole area/total area ratio
+1.25                  1.25                    2.5                       34.7274       0.5                                   0.196350
+1.5                   1                       2.5                       14.4402       0.6                                   0.282743
+1.75                  0.75                    2.5                       6.32234       0.7                                   0.384845
+2                     0.5                     2.5                       2.83248       0.8                                   0.502654
+2.25                  0.25                    2.5                       1.18552       0.9                                   0.636172
+2.4                   0.1                     2.5                       0.626318      0.96                                  0.723823
+2.475                 0.025                   2.5                       0.43754       0.99                                  0.769769
 -> large effect, no good polynomial fit
+
+Grid mesh results (2x2 copies, inlet speed 10, first mesh in refinement.txt):
+square_size (cm),     overlap_offset (cm),    wire_section_radius (cm), k
+2.5                   0.6                     0.125                     0.206435
+2.5                   0.6                     0.25                      0.497481
+2.5                   0.6                     0.4                       1.01028
+2.5                   0.6                     0.45                      1.18621
+2.5                   0.6                     0.5                       3.09337
+2.5                   0.6                     0.55                      3.60406
+2.5                   0.6                     0.6                       3.68879
+2.5                   0.6                     1                         271.49
+-> very big effect, this effects both how large "holes" are and how "thick" the grid is
+2.5                   0.5                     0.5                       3.56465
+2.5                   0.55                    0.5                       3.57318
+2.5                   0.6                     0.5                       3.09337
+2.5                   0.65                    0.5                       2.81168
+2.5                   0.7                     0.5                       2.59965
+-> moderate effect, the interpretation as "thickeness" like in the other mesh does not apply
+0.25                  0.06                    0.05                      3.88772
+2.5                   0.6                     0.5                       3.09337
+-> this is just scaling the entire mesh, it has a similar effect to changing velocity

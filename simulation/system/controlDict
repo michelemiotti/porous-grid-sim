@@ -22,15 +22,15 @@ startTime       0;
 
 stopAt          endTime;
 
-endTime         10000;
+endTime         100;
 
 deltaT          1;
 
 writeControl    timeStep;
 
-writeInterval   5;
+writeInterval   100;
 
-purgeWrite      10;
+purgeWrite      1;
 
 writeFormat     binary;
 
@@ -49,7 +49,7 @@ functions
     #include "pressureCoefficient"
     #include "fieldAverage"
     #include "surfaceFieldValue"
-    #include "runTimeControl"
+    //#include "runTimeControl"
 }
 
 // ************************************************************************* //
