@@ -16,19 +16,19 @@ num_x_cells 20;
 // A value of y guaranteed to be inside the fluid for any x,z in the domain.
 y_in_fluid 0.499999;
 // Thickness to use the highest refinement on (on the inlet side) compared to base length.
-thickness_1_rel 0.5; 
+thickness_1_rel 0.00; 
 // Thickness to use the second highest refinement on (on the inlet side) compared to base length.
-thickness_2_rel 0.5;
+thickness_2_rel 0.01;
 // Thickness to use the third highest refinement on (on the inlet side) compared to base length.
-thickness_3_rel 0.5;
+thickness_3_rel 0.03;
 // Ratio between outlet and inlet side thicknesses for refinements.
-thickness_ratio 1.0; 
+thickness_ratio 4.0; 
 // Refinement for box 3.
 box_3_refinement 1;
 // Refinement level for the grid.
-grid_refinement 5;
+grid_refinement 3;
 // includedAngle for surfaceFeatureExtract.
-extractAngle 130;
+extractAngle 160;
 
 thickness_1 #eval "$thickness_1_rel * $length";
 thickness_2 #eval "$thickness_2_rel * $length";

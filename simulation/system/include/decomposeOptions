@@ -7,12 +7,12 @@
 \*---------------------------------------------------------------------------*/
 
 // Number of subdomains in the x (base) direction.
-num_x_subdomains 8;
+num_x_subdomains 4;
 
 // Number of subdomains in the y (height) direction.
 num_y_subdomains 1;
 
 // Number of subdomains in the z (base) direction.
-num_z_subdomains 4;
+num_z_subdomains 2;
 
 // ************************************************************************* //

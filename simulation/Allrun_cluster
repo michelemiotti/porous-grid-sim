@@ -4,7 +4,7 @@
 #$ -N PorousGridSim
 #$ -S /bin/bash
 #$ -q all.q                   # queueName
-#$ -pe mpi 32           # cpuNumber
+#$ -pe mpi 8           # cpuNumber
 #$ -l h_rt=48:00:00
 #----------------------------------------------------------
 
@@ -14,7 +14,7 @@ module load openfoam/2306-gcc-13.2.0-tnytlfv
 #----------------------------------------------------------
 # #!/bin/bash
 
-NUM_PROCESSORS=32
+NUM_PROCESSORS=8
 GRID_FILENAME=wire_mesh.obj
 
 # Run a command and check its exit code.
