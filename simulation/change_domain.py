@@ -7,16 +7,16 @@ import os
 # the environmental variable "BLENDER_PATH" set correctly.
 
 """ ----------------- EDITABLE SETTINGS ----------------- """
-# Choose the mesh. The options are "porous", "grid".
-mesh = "porous"
+# Choose the mesh. The options are "dotted", "wire".
+mesh = "dotted"
 
-# Options for porous mesh (in meters).
+# Options for dotted mesh (in meters).
 # Meaning explained in README.md.
 cavity_diameter = 2 / 100
 cavity_distancing = 0.5 / 100
 slate_thickness = 2.5 / 100
 
-# Options for grid mesh (in meters).
+# Options for wire mesh (in meters).
 # Meaning explained in README.md.
 square_size = 2.5 / 100
 overlap_offset = 0.6 / 100
@@ -26,37 +26,37 @@ wire_section_radius = 0.5 / 100
 # Options for the domain.
 length = 1.0  # Length of the domain in meters.
 num_copies = 4  # Number of copies of the grid before periodicity is applied.
-# Note that for the "grid" mesh, this is half the number of squares.
+# Note that for the "wire" mesh, this is half the number of squares.
 """ ----------------- EDITABLE SETTINGS ----------------- """
 
 
 # Compute the derived parameters.
-if mesh == "porous":
+if mesh == "dotted":
     domain_length = cavity_diameter + cavity_distancing
     base = domain_length * num_copies
     cavity_amount = num_copies + 2
     if slate_thickness > length:
-        print("Error! Wrong parameters for porous mesh.")
+        print("Error! Wrong parameters for the dotted mesh.")
         sys.exit(1)
     y_in_fluid = length / 2 - 1e-6
 else:
-    if mesh != "grid":
+    if mesh != "wire":
         print("Error! Selected an invalid grid type.")
         sys.exit(1)
     domain_length = square_size * 2
     base = domain_length * num_copies
     square_amount = 2 * num_copies + 2
     if overlap_offset + wire_section_radius > length / 2:
-        print("Error! Wrong parameters for grid mesh.")
+        print("Error! Wrong parameters for the wire mesh.")
         sys.exit(1)
     y_in_fluid = length / 2 - 1e-6
 
 
 # Create the desired mesh.
 filename = "constant/triSurface/grid.obj"
-if mesh == "porous":
+if mesh == "dotted":
     os.system(
-        f"$BLENDER_PATH --background --python ../mesh-generators/generate_porous_mesh.py -- \
+        f"$BLENDER_PATH --background --python ../mesh-generators/generate_dotted_mesh.py -- \
                --export_path {filename}                \
                --cavity_amount {cavity_amount}         \
                --cavity_diameter {cavity_diameter}     \

@@ -20,7 +20,7 @@ Same results for another mesh (first one in grid_refinement.txt):
 HOSSEIN
 8      26.81            30.32
 4      26.12            27.31
-
+2      32.19            29.02
 
 Same results for another mesh (2312575 cells in refinement.txt but with extractAngle 160):
 (50 iterations)
