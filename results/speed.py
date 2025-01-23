@@ -45,15 +45,15 @@ x2, y2 = zip(*filtered_list2)
 
 # Plot the data
 plt.figure(figsize=(8, 5))
-plt.plot(x1, y1, label='Porous mesh', marker='o')
+plt.plot(x1, y1, label='Dotted mesh', marker='o')
 plt.plot(x2, y2, label='Grid mesh', marker='s')
 
 # Customize the plot
 #plt.title("Second Value Over First Value")
-plt.xlabel("Reference velocity")
+plt.xlabel("Inlet velocity magnitude")
 plt.ylabel("k")
 plt.legend()
 plt.grid(True)
 
 # Show the plot
-plt.show()
+plt.savefig('plots/velocity-plot.png', bbox_inches='tight')

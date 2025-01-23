@@ -56,7 +56,7 @@ y = 3*np.cos(x/180*np.pi)
 
 # Plot the data
 plt.figure(figsize=(8, 5))
-plt.plot(x1, y1, label='Porous mesh', marker='o')
+plt.plot(x1, y1, label='Dotted mesh', marker='o')
 #plt.plot(x2, y2, label='Grid mesh', marker='s')
 
 # Customize the plot
@@ -69,4 +69,4 @@ plt.grid(True)
 plt.ylim(2, 3.3)  # Bottom starts at 0.2, top adjusts automatically
 
 # Show the plot
-plt.show()
+plt.savefig('plots/k-convergence.png', bbox_inches='tight')
