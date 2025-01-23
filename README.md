@@ -6,17 +6,20 @@ MECHANICAL ENGINEERING** course.
 
 ## Installation
 
-At this point, we haven't automated the installation process. You will need to
-have a working `blender` executable in your machine. You can download it
+You will need to have a working `blender` executable in your machine. You can download it
 [here](https://www.blender.org/download/).
 
 
 ## Mesh Generation
 
-Mesh generation is done using `blender`. So far, two types of meshes can be
+Mesh generation is done using `blender`. Two types of meshes can be
 generated: porous and wire meshes. Further details on how to generate each type
 of mesh are provided below. The generated mesh has to be saved as
 `simulation/constant/triSurface/grid.obj` for the simulation to use it.
+You can either follow the instructions in this section and generate the mesh yourself
+(not recommended) or use the script provided in `system/change_domany.py`, editing
+it based on what mesh you want to generate. Information on the effect of each parameter
+is explained here.
 
 ### Porous Mesh Generation
 
@@ -113,14 +116,15 @@ To run the simulation locally:
 
 > Load the OpenFOAM environment.
 > Move to the `simulation` folder.
+> If you haven't done this yet, generate the mesh, possibly running `python3 change_domain.py`
 > Run `chmod +x Allrun`.
 > Run `./Allrun`.
 
-To copy this repository and start the simulation on the cluster automatically:
+To copy this repository and start the simulation on the cluster automatically, after generating the mesh:
 
 > Load the OpenFOAM environment.
 > Make sure you are in the root directory of the repository (`porous-grid-sim`).
-> Run `chmod +x scripts/run_on_cluster.sh` <username> <password>, where <username> and <password> are your username and password for the cluster respectively.
-> Run `./scripts/run_on_cluster.sh`.
+> Run `chmod +x scripts/run_on_cluster.sh`
+> Run `./scripts/run_on_cluster.sh <username> <password>`, where <username> and <password> are your username and password for the cluster respectively.
 
 Note: this only enqueues the simulation, it does not wait until it is fully done.
