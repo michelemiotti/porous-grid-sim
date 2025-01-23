@@ -1,9 +1,41 @@
 Porous mesh results (cavity_diameter 2 cm, cavity_distancing 0.5 cm, slate_thickness 2.5 cm, 4x4 copies):
 (last mesh in grid_refinement.txt)
 (100 iterations)
+CLUSTER
 cores, snappy time (s), solver time (s)
 8      queued mmiotti
 16     1336.81          4215.92
 32     queued fpesce
 
-Same results for another mesh (12921603 cells in refinement.txt):
+Same results for another mesh (6537589 cells in refinement.txt but with extractAngle 160):
+(50 iterations)
+HOSSEIN
+8      430.37/438.43    855.25/871.45
+4      466.85           836.64
+2      722.06           892.23
+
+
+Same results for another mesh (first one in grid_refinement.txt):
+(50 iterations)
+HOSSEIN
+8      26.81            30.32
+4      26.12            27.31
+
+
+Same results for another mesh (2312575 cells in refinement.txt but with extractAngle 160):
+(50 iterations)
+FRANCESCO
+6      62.11            86.35
+5      78.47            95.91
+4      72.27            112.53
+3      103.73           132.82
+2      134.68           177.08
+1      249.77           295.52
+
+Same results for another mesh (4112817 cells in refinement.txt but with extractAngle 160):
+(50 iterations)
+FRANCESCO
+6      145.39           153.02
+4      190.13           191.98
+2      317.67           315.24
+-> basically same scaling

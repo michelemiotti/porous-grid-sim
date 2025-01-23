@@ -32,7 +32,7 @@ square_size (cm),     overlap_offset (cm),    wire_section_radius (cm), k
 2.5                   0.6                     0.5                       3.09337
 2.5                   0.65                    0.5                       2.81168
 2.5                   0.7                     0.5                       2.59965
--> moderate effect, the interpretation as "thickeness" like in the other mesh does not apply
+-> moderate effect, the interpretation as "thickness" like in the other mesh does not apply
 0.25                  0.06                    0.05                      3.88772
 2.5                   0.6                     0.5                       3.09337
 -> this is just scaling the entire mesh, it has a similar effect to changing velocity

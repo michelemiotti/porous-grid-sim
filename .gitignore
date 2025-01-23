@@ -14,6 +14,7 @@ simulation/*
 !simulation/0.orig
 !simulation/Allclean
 !simulation/Allrun
+!simulation/Allrun_serial
 !simulation/Allrun_cluster
 !simulation/*.py
 simulation/constant/polyMesh

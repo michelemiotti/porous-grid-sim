@@ -5,11 +5,16 @@ cd ${0%/*} || exit 1
 # Source tutorial run functions.
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-# Set the number of processors.
+# Check the number of processors.
 NUM_PROCESSORS=$(python3 extract_num_processors.py 2>&1)
 if ! [ $? = 0 ];
 then
     echo "Extraction of number of processors failed!"
+    exit 1
+fi
+if ! [ $NUM_PROCESSORS = 1 ];
+then
+    echo "Error! The domain must not be composed for a serial run!"
     exit 1
 fi
 
@@ -24,42 +29,19 @@ run_and_check() {
     fi
 }
 
-# Run a command in parallel and check its exit code.
-run_and_check_parallel() {
-    runParallel -np $NUM_PROCESSORS $1 $2
-
-    if ! [ $? = 0 ];
-    then
-        echo "$1 failed!"
-        exit 1
-    fi
-}
-
 run_and_check surfaceFeatureExtract
 
 run_and_check blockMesh
 
-run_and_check decomposePar
+run_and_check snappyHexMesh -overwrite
 
-run_and_check_parallel snappyHexMesh -overwrite
+run_and_check restore0Dir
 
-run_and_check restore0Dir -processor
+run_and_check potentialFoam -writephi
 
-run_and_check_parallel potentialFoam -writephi
-
-run_and_check_parallel $(getApplication)
-
-run_and_check reconstructParMesh -constant
-
-run_and_check reconstructPar -latestTime
+run_and_check $(getApplication)
 
 paraFoam -touch
-for (( i=0; i<$NUM_PROCESSORS; ++i )); 
-do 
-    cd processor$i
-    paraFoam -touch
-    cd ..
-done
 
 python3 compute_pressure_drop.py
 if ! [ $? = 0 ];
