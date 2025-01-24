@@ -80,8 +80,7 @@ The script takes the following parameters:
   is applied. If curve smoothing is applied, the overlap will be relatively
   smaller than the specified value.
 - `bevel_resolution`: This is the amount of segments used to approximate the
-  curviness around the intersection points. Increasing this will make the curve
-  smoother along the YZ plane. See `curve_smoothing_offset` for more
+  curviness around the intersection points. See `curve_smoothing_offset` for more
   information.
 - `wire_section_radius`: The radius of the wires.
 - `curve_bevel_resolution`: Given a section of a curve (a circle), this is the
