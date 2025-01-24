@@ -118,7 +118,7 @@ To run the simulation locally:
 - If you haven't done this yet, generate the mesh, possibly running `python3 change_domain.py`
 - Set the number of processors for execution by running `python3 update_num_processors.py -x <Px> -y <Py> -z Pz`, where the number of processors used will be $Px \times Py \times Pz$.
 - If you are using more than 1 processor, run `chmod +x Allrun`, otherwise run `chmod +x Allrun_serial`.
-- Run `./Allrun`, or `Allrun_serial`.
+- Run `./Allrun`, or `./Allrun_serial`.
 
 To copy this repository and start the simulation on the cluster automatically, after generating the mesh:
 

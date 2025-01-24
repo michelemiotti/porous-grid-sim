@@ -36,3 +36,6 @@ vpn/
 
 # Vscode files.
 .vscode
+
+# Results.
+results
