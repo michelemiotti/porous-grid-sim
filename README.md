@@ -116,7 +116,7 @@ To run the simulation locally:
 - Load the OpenFOAM environment.
 - Move to the `simulation` folder.
 - If you haven't done this yet, generate the mesh, possibly running `python3 change_domain.py`.
-- Set the number of processors for execution by running `python3 update_num_processors.py -x <Px> -y <Py> -z Pz`, where the number of processors used will be $Px \times Py \times Pz$.
+- Set the number of processors for execution by running `python3 update_num_processors.py -x <Px> -y <Py> -z <Pz>`, where the number of processors used will be $Px \times Py \times Pz$.
 - If you are using more than 1 processor, run `chmod +x Allrun`, otherwise run `chmod +x Allrun_serial`.
 - Run `./Allrun`, or `./Allrun_serial`.
 
@@ -125,6 +125,7 @@ To copy this repository and start the simulation on the cluster automatically, a
 - Load the OpenFOAM environment.
 - Make sure you are in the root directory of the repository (`porous-grid-sim`).
 - Run `chmod +x scripts/run_on_cluster.sh`.
-- Run `./scripts/run_on_cluster.sh <username> <password>`, where <username> and <password> are your username and password for the cluster respectively.
+- Run `./scripts/run_on_cluster.sh <username> <password>`, where `username` and `password` are your username and password for the cluster respectively. Note that this may require additional packages, e.g. `expect`.
 
-Note: this only enqueues the simulation, it does not wait until it is fully done.
+> [!NOTE]
+> This only enqueues the simulation, it does not wait until it is fully done.
